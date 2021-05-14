@@ -223,11 +223,11 @@
       character.setAttribute('rotation','0 90 0');
       character.setAttribute('id', 'character');
       character.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
-      character.setAttribute('fbx-model','src: #asset_character');
+      character.setAttribute('fbx-model','src: url(#asset_character)');
       character.setAttribute('animation-mixer', 'clip: *;')
       scene.appendChild(character); 
 
-
+console.log(character)
 
 
       //reload
