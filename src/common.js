@@ -216,8 +216,9 @@
       
       // Print character
       var character = document.createElement("a-entity");
-      character.setAttribute('height',1);
-      character.setAttribute('width',2);
+      character.setAttribute('height',2);
+      character.setAttribute('width',1);
+      character.setAttribute('scale', '0.01 0.01 0.01')
       character.setAttribute('look-at', '#camera');
       character.setAttribute('rotation','0 90 0');
       character.setAttribute('id', 'character');
