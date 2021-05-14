@@ -147,7 +147,7 @@
       plane_roof.setAttribute('rotation','90 0 0');
       plane_roof.setAttribute('material','src: #asset_roof;side: double;repeat: '+maze_width+' '+maze_height);
 
-      scene.appendChild(plane_roof);
+      // scene.appendChild(plane_roof);
 
       // Print walls
       var plane_wall = document.createElement("a-plane");
