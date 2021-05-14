@@ -202,18 +202,30 @@
       var cam = document.getElementById('camera');
       cam.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1.6 '+(3*(free1-(maze_height-1)*.5)));
 
-      // Print instructions
-      var plane_instructions = document.createElement("a-box");
-      plane_instructions.setAttribute('height',1.5);
-      plane_instructions.setAttribute('width',2.5);
-      plane_instructions.setAttribute('look-at','#camera');
-      plane_instructions.setAttribute('rotation','0 90 0');
-      plane_instructions.setAttribute('id','instruction');
-      plane_instructions.setAttribute('on-gaze','');
-      plane_instructions.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
-      plane_instructions.setAttribute('material','src: #asset_instruction;');
-      scene.appendChild(plane_instructions); 
+      // // Print instructions
+      // var plane_instructions = document.createElement("a-box");
+      // plane_instructions.setAttribute('height',1.5);
+      // plane_instructions.setAttribute('width',2.5);
+      // plane_instructions.setAttribute('look-at','#camera');
+      // plane_instructions.setAttribute('rotation','0 90 0');
+      // plane_instructions.setAttribute('id','instruction');
+      // plane_instructions.setAttribute('on-gaze','');
+      // plane_instructions.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
+      // plane_instructions.setAttribute('material','src: #asset_instruction;');
+      // scene.appendChild(plane_instructions); 
       
+      // Print character
+      var character = document.createElement("a-obj-model");
+      character.setAttribute('height',1);
+      character.setAttribute('width',2);
+      character.setAttribute('look-at', '#camera');
+      character.setAttribute('rotation','0 90 0');
+      character.setAttribute('id', 'character');
+      character.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
+      character.setAttribute('material','src: #asset_character');
+
+
+
 
       //reload
       var reload = document.createElement("a-box");
