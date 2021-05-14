@@ -55,13 +55,13 @@
     /* Maze functions */
     /* Replication Single objects for maze */
 
-    function buildPath(maze, pos){
-      var neighbor = [];
+    function buildPath(maze, pos) {
+      let neighbor = [];
       maze[pos[0]][pos[1]] = 1;
-      if(pos[0] > 0) neighbor.push([pos[0]-1,pos[1]  ]);
-      if(pos[1] > 0) neighbor.push([pos[0]  ,pos[1]-1]);
-      if(pos[0] < maze.length-1)    neighbor.push([pos[0]+1,pos[1]  ]);
-      if(pos[1] < maze[0].length-1) neighbor.push([pos[0]  ,pos[1]+1]);
+      if (pos[0] > 0) neighbor.push([pos[0]-1, pos[1]  ]);
+      if (pos[1] > 0) neighbor.push([pos[0]  , pos[1]-1]);
+      if (pos[0] < maze.length-1)    neighbor.push([pos[0]+1,pos[1]  ]);
+      if (pos[1] < maze[0].length-1) neighbor.push([pos[0]  ,pos[1]+1]);
 
       shuffle(neighbor);
 
