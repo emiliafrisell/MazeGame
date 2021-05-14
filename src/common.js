@@ -200,7 +200,7 @@
         }
       }
       var cam = document.getElementById('camera');
-      cam.setAttribute('position',(4*(free2-(maze_width-1)*.5))+' 1.6 '+(4*(free1-(maze_height-1)*.5)));
+      cam.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1.6 '+(3*(free1-(maze_height-1)*.5)));
 
       // // Print instructions
       // var plane_instructions = document.createElement("a-box");
