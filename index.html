@@ -71,18 +71,18 @@
       });
 
       // Instructions Glow Component
-      AFRAME.registerComponent('on-gaze', {
-      init: function () {
-        this.el.addEventListener('mouseenter', function (evt) {
-        var glow = document.getElementById("instruction");
-        glow.setAttribute('glow','side: front; scale: 2; color: #e8cd00; c: 0.1; p: 3.5;');
-      });
-      this.el.addEventListener('mouseleave', function (evt) {
-        var glow = document.getElementById("instruction");
-        glow.setAttribute('glow','enabled:false');
-      });
-      }
-      });
+      // AFRAME.registerComponent('on-gaze', {
+      // init: function () {
+      //   this.el.addEventListener('mouseenter', function (evt) {
+      //   var glow = document.getElementById("instruction");
+      //   glow.setAttribute('glow','side: front; scale: 2; color: #e8cd00; c: 0.1; p: 3.5;');
+      // });
+      // this.el.addEventListener('mouseleave', function (evt) {
+      //   var glow = document.getElementById("instruction");
+      //   glow.setAttribute('glow','enabled:false');
+      // });
+      // }
+      // });
 
 
       /* Maze formation */
