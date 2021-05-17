@@ -1,4 +1,7 @@
 
+    // API Key for Poly
+    // const API_KEY = 'AIzaSyD-zAkGYfmoW2fTN1-LY7jB19IotsCln54';
+
     /* Aux functions- Maze sharing */
 
     Array.prototype.repeat= function(what, L){
@@ -200,12 +203,12 @@
         }
       }
       var cam = document.getElementById('camera');
-      cam.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1.6 '+(3*(free1-(maze_height-1)*.5)));
+      cam.setAttribute('position','-25.5 2.3 -17');
 
       // // Print instructions
       // var plane_instructions = document.createElement("a-box");
-      // plane_instructions.setAttribute('height',1.5);
-      // plane_instructions.setAttribute('width',2.5);
+      // plane_instructions.setAttribute('height',2);
+      // plane_instructions.setAttribute('width',1.5);
       // plane_instructions.setAttribute('look-at','#camera');
       // plane_instructions.setAttribute('rotation','0 90 0');
       // plane_instructions.setAttribute('id','instruction');
@@ -213,22 +216,114 @@
       // plane_instructions.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
       // plane_instructions.setAttribute('material','src: #asset_instruction;');
       // scene.appendChild(plane_instructions); 
-      
+
+
+      var entity = document.createElement('a-entity')
+      entity.setAttribute('position','-25.5 1.2 -20');
+      // entity.setAttribute('id', 'character');
+
+
       // Print character
-      var character = document.createElement("a-entity");
+      var character = document.createElement("a-box");
+      character.setAttribute('static-body','');
+
       character.setAttribute('height',2);
       character.setAttribute('width',1);
-      character.setAttribute('scale', '0.01 0.01 0.01')
-      character.setAttribute('look-at', '#camera');
-      character.setAttribute('rotation','0 90 0');
+
+      // character.setAttribute('look-at', '#camera');
+      character.setAttribute('rotation','0 45 10');
       character.setAttribute('id', 'character');
-      character.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
-      character.setAttribute('fbx-model','src: url(#asset_character)');
-      character.setAttribute('animation-mixer', 'clip: *;')
+      character.setAttribute('on-gaze','');
+      character.setAttribute('position','-25.5 1.2 -20');
+      character.setAttribute('color', 'red')
+      // character.setAttribute('src', '#asset_character');
+      // character.setAttribute('animation-mixer', 'clip: *;')
+      character.setAttribute('shadow', "type: basic")
+      // entity.appendChild(character); 
       scene.appendChild(character); 
 
-console.log(character)
+      console.log(character.id)
 
+
+    //   <a-gltf-model
+    //   src="out.glb"
+    //   position="-25.5 2.2 -19.5"
+    //   animation-mixer="clip: *;"
+    //   shadow
+    // ></a-gltf-model>
+// --------------------------------------------------------------------------------------------------
+
+			// const API_KEY = 'AIzaSyD-zAkGYfmoW2fTN1-LY7jB19IotsCln54';
+
+			// function loadAsset( id ) {
+
+			// 	var url = `https://poly.googleapis.com/v1/assets/${id}/?key=${API_KEY}`;
+
+			// 	var request = new XMLHttpRequest();
+			// 	request.open( 'GET', url, true );
+			// 	request.addEventListener( 'load', function ( event ) {
+
+			// 		var asset = JSON.parse( event.target.response );
+
+			// 		// asset_name.textContent = asset.displayName;
+			// 		// asset_author.textContent = asset.authorName;
+
+			// 		var format = asset.formats.find( format => { return format.formatType === 'OBJ'; } );
+
+			// 		if ( format !== undefined ) {
+
+			// 			var obj = format.root;
+			// 			var mtl = format.resources.find( resource => { return resource.url.endsWith( 'mtl' ) } );
+
+			// 			var path = obj.url.slice( 0, obj.url.indexOf( obj.relativePath ) );
+
+			// 			var loader = new THREE.MTLLoader();
+			// 			loader.setCrossOrigin( true );
+			// 			loader.setMaterialOptions( { ignoreZeroRGBs: true } );
+			// 			loader.setTexturePath( path );
+			// 			loader.load( mtl.url, function ( materials ) {
+
+			// 				var loader = new THREE.OBJLoader();
+			// 				loader.setMaterials( materials );
+			// 				loader.load( obj.url, function ( object ) {
+
+			// 					var box = new THREE.Box3();
+			// 					box.setFromObject( object );
+
+			// 					// re-center
+
+			// 					var center = box.getCenter();
+			// 					center.y = box.min.y;
+			// 					object.position.sub( center );
+
+			// 					// scale
+
+			// 					var scaler = new THREE.Group();
+			// 					scaler.add( object );
+			// 					scaler.scale.setScalar( 6 / box.getSize().length() );
+			// 					scene.add( scaler );
+
+			// 				} );
+
+			// 			} );
+
+			// 		}
+
+			// 	} );
+			// 	request.send( null );
+
+			// }
+
+			// if ( API_KEY.startsWith( '**' ) ) {
+
+			// 	alert( 'Sample incorrectly set up. Please enter your API Key for the Poly API in the API_KEY variable.' );
+
+			// }
+
+			// loadAsset( '5vbJ5vildOq' );
+
+
+// --------------------------------------------------------------------------------------------------
 
       //reload
       var reload = document.createElement("a-box");
