@@ -1,7 +1,3 @@
-
-    // API Key for Poly
-    // const API_KEY = 'AIzaSyD-zAkGYfmoW2fTN1-LY7jB19IotsCln54';
-
     /* Aux functions- Maze sharing */
 
     Array.prototype.repeat= function(what, L){
@@ -58,20 +54,25 @@
     /* Maze functions */
     /* Replication Single objects for maze */
 
+    // buildPath(maze: maze, pos:[0,0]);
+    
     function buildPath(maze, pos) {
       let neighbor = [];
+      // maze[0][0] 
       maze[pos[0]][pos[1]] = 1;
-      if (pos[0] > 0) neighbor.push([pos[0]-1, pos[1]  ]);
-      if (pos[1] > 0) neighbor.push([pos[0]  , pos[1]-1]);
-      if (pos[0] < maze.length-1)    neighbor.push([pos[0]+1,pos[1]  ]);
-      if (pos[1] < maze[0].length-1) neighbor.push([pos[0]  ,pos[1]+1]);
+      if (pos[0] > 0){ neighbor.push([pos[0]-1, pos[1]  ]); console.log('a');}
+      if (pos[1] > 0) {neighbor.push([pos[0]  , pos[1]-1]); console.log('b');}
+      if (pos[0] < maze.length-1)   { neighbor.push([pos[0]+1,pos[1]  ]); console.log('c');}
+      if (pos[1] < maze[0].length-1) {neighbor.push([pos[0]  ,pos[1]+1]); console.log('d');}
 
       shuffle(neighbor);
+      console.log('nei',neighbor)
 
       for (var i = neighbor.length - 1; i >= 0; i--) {
-
+        console.log(neighbor.length)
         if(maze[neighbor[i][0]][neighbor[i][1]] == 0 && countNeighbors(maze, neighbor[i]) == 1){
           buildPath(maze, neighbor[i]);
+          console.log(maze, neighbor[i])
         }
       }
     }
@@ -90,6 +91,7 @@
       if(pos[1] < maze[0].length-1 && maze[pos[0]][pos[1]+1] == 1){
         res++;
       }
+      console.log('res:', res)
       return res;
     }
 
@@ -148,6 +150,7 @@
       plane_roof.setAttribute('width',3*maze_width);
       plane_roof.setAttribute('position','0 3 0');
       plane_roof.setAttribute('rotation','90 0 0');
+      plane_roof.setAttribute('color', 'transparent')
       plane_roof.setAttribute('material','src: #asset_roof;side: double;repeat: '+maze_width+' '+maze_height);
 
       scene.appendChild(plane_roof);
@@ -204,6 +207,7 @@
       }
       var cam = document.getElementById('camera');
       cam.setAttribute('position','-25.5 2.3 -17');
+      
 
       // // Print instructions
       // var plane_instructions = document.createElement("a-box");
@@ -216,6 +220,9 @@
       // plane_instructions.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
       // plane_instructions.setAttribute('material','src: #asset_instruction;');
       // scene.appendChild(plane_instructions); 
+
+      // console.log('inst', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+      // console.log('blue', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
 
 
       var entity = document.createElement('a-entity')
@@ -241,9 +248,6 @@
       character.setAttribute('shadow', "type: basic")
       // entity.appendChild(character); 
       scene.appendChild(character); 
-
-      console.log(character.id)
-
 
     //   <a-gltf-model
     //   src="out.glb"
@@ -359,6 +363,32 @@
           box_price.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
 
           scene.appendChild(box_price);
+
+          console.log('price',box_price)
+
+      var box_blue = document.createElement("a-box");
+          box_blue.setAttribute('static-body','');
+          box_blue.setAttribute('color','blue');
+          box_blue.setAttribute('id','blue');
+          box_blue.setAttribute('height',1);
+          box_blue.setAttribute('width',1);
+          box_blue.setAttribute('depth',1);
+          box_blue.setAttribute('rotation','0 45 0');
+          box_blue.setAttribute('position','-7.806731719342325, 1.6806169800177764, -1.2907063170893354')
+
+          scene.appendChild(box_blue);
+
+      var box_yellow = document.createElement("a-box");
+          box_yellow.setAttribute('static-body','');
+          box_yellow.setAttribute('color','yellow');
+          box_yellow.setAttribute('id','yellow');
+          box_yellow.setAttribute('height',1);
+          box_yellow.setAttribute('width',1);
+          box_yellow.setAttribute('depth',1);
+          box_yellow.setAttribute('rotation','0 45 0');
+          box_yellow.setAttribute('position','-16.704603962652797, 1, -1.8085777462497545')
+
+          scene.appendChild(box_yellow);
 
       // Print all walls as boxes
       for(var i = 0; i < maze_height; i++){
