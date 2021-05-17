@@ -79,7 +79,7 @@
                 <!--Timer is a Non-Diegetic UI Element-->
                 <a-entity text="text: Time;fnt:assets/SourceCodePro.fnt;size:.09;height:0.001" material="color:black" position="-0.1 -0.7 -1" id="board"></a-entity>
                 <!--Entity for Winner text-->
-                <a-entity text="text: ;size:0.1;height:0.001" material="color:#f4ff61" position="-0.9 0 -1" id="winner"></a-entity>
+                <a-entity text="text: ;size:0.1;height:0.001" material="color:#f4ff61" position="-0.6 0 -1" id="winner"></a-entity>
                 <a-entity text="text: ;size:0.1;height:0.001" material="color:#f4ff61" position="-0.6 0 -1" id="red"></a-entity>
               </a-entity>               
               <a-gltf-model
@@ -96,11 +96,11 @@
     <script>
       //  Reload Game Component
       AFRAME.registerComponent('on-click', {
-      init: function () {
-      this.el.addEventListener('click', function (evt) {
-        location.reload();
-      });
-      }
+        init: function () {
+          this.el.addEventListener('click', function (evt) {
+            location.reload();
+          });
+        }
       });
 
       // Instructions Glow Component
@@ -142,15 +142,22 @@
             attr_text.text = "";
             red.setAttribute('text', attr_text);
           }, 1500)
+
+          document.getElementById('character').setAttribute('visible', 'false')
+          document.getElementById('character').setAttribute('position', '0 0 0');
           
         }
 
         if (e.detail.body.el.getAttribute('id') == 'yellow') {
           found.push(e.detail.body.el.getAttribute('id'))
+          document.getElementById('yellow').setAttribute('position', '0 -1 0');
+
         }
 
         if (e.detail.body.el.getAttribute('id') == 'blue') {
           found.push(e.detail.body.el.getAttribute('id'))
+          document.getElementById('blue').setAttribute('position', '0 -1 0');
+
         }
         
         if (e.detail.body.el.getAttribute('id') == 'price') {
@@ -158,7 +165,7 @@
           
           var winner = document.getElementById('winner');
           var attr_text = winner.getAttribute('text');
-          attr_text.text = "Hurray! You Found <br /> " + found;
+          attr_text.text = found;
           winner.setAttribute('text', attr_text);
           console.log(winner)
           
