@@ -60,19 +60,19 @@
       let neighbor = [];
       // maze[0][0] 
       maze[pos[0]][pos[1]] = 1;
-      if (pos[0] > 0){ neighbor.push([pos[0]-1, pos[1]  ]); console.log('a');}
-      if (pos[1] > 0) {neighbor.push([pos[0]  , pos[1]-1]); console.log('b');}
-      if (pos[0] < maze.length-1)   { neighbor.push([pos[0]+1,pos[1]  ]); console.log('c');}
-      if (pos[1] < maze[0].length-1) {neighbor.push([pos[0]  ,pos[1]+1]); console.log('d');}
+      if (pos[0] > 0){ neighbor.push([pos[0]-1, pos[1]  ]);}
+      if (pos[1] > 0) {neighbor.push([pos[0]  , pos[1]-1]);}
+      if (pos[0] < maze.length-1)   { neighbor.push([pos[0]+1,pos[1]  ]);}
+      if (pos[1] < maze[0].length-1) {neighbor.push([pos[0]  ,pos[1]+1]);}
 
       shuffle(neighbor);
-      console.log('nei',neighbor)
+      // console.log('nei',neighbor)
 
       for (var i = neighbor.length - 1; i >= 0; i--) {
-        console.log(neighbor.length)
+        // console.log(neighbor.length)
         if(maze[neighbor[i][0]][neighbor[i][1]] == 0 && countNeighbors(maze, neighbor[i]) == 1){
           buildPath(maze, neighbor[i]);
-          console.log(maze, neighbor[i])
+          // console.log(maze, neighbor[i])
         }
       }
     }
@@ -91,7 +91,7 @@
       if(pos[1] < maze[0].length-1 && maze[pos[0]][pos[1]+1] == 1){
         res++;
       }
-      console.log('res:', res)
+      // console.log('res:', res)
       return res;
     }
 
@@ -247,7 +247,7 @@
       // character.setAttribute('animation-mixer', 'clip: *;')
       character.setAttribute('shadow', "type: basic")
       // entity.appendChild(character); 
-      scene.appendChild(character); 
+      // scene.appendChild(character); 
 
     //   <a-gltf-model
     //   src="out.glb"
@@ -348,7 +348,9 @@
         if(free1 <= 0){
           free1 = maze_height-1;
           free2--;
+          
         }
+        console.log(free1)
       }
 
       // door
@@ -356,15 +358,24 @@
           box_price.setAttribute('static-body','');
           box_price.setAttribute('src','#door');
           box_price.setAttribute('id','price');
-          box_price.setAttribute('height',2);
-          box_price.setAttribute('width',1);
-          box_price.setAttribute('depth',1);
-          box_price.setAttribute('rotation','0 0 0');
-          box_price.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
+          box_price.setAttribute('height',4);
+          box_price.setAttribute('width',2);
+          box_price.setAttribute('depth',2);
+          box_price.setAttribute('rotation','0 45 0');
+          box_price.setAttribute('position',(3*(free2-(maze_width-1)*.5)-2)+' 1 '+(3*(free1-(maze_height-1)*.5)-2));
 
           scene.appendChild(box_price);
 
-          console.log('price',box_price)
+
+     var free1=maze_height-2,free2=maze_width-2;
+      while(maze[free1][free2] != 1){
+        free1--;
+        if(free1 <= 0){
+          free1 = maze_height-2;
+          free2--;
+
+        }
+      }
 
       var box_blue = document.createElement("a-box");
           box_blue.setAttribute('static-body','');
@@ -374,9 +385,23 @@
           box_blue.setAttribute('width',1);
           box_blue.setAttribute('depth',1);
           box_blue.setAttribute('rotation','0 45 0');
-          box_blue.setAttribute('position','-7.806731719342325, 1.6806169800177764, -1.2907063170893354')
+          box_blue.setAttribute('position', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
 
           scene.appendChild(box_blue);
+
+          console.log('blue', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+
+
+      var free1=maze_height-3,free2=maze_width-3;
+          while(maze[free1][free2] != 1){
+            free1--;
+            if(free1 <= 0){
+              free1 = maze_height-3;
+              free2--;
+            }
+          }
+      console.log(free1,free2)
+
 
       var box_yellow = document.createElement("a-box");
           box_yellow.setAttribute('static-body','');
@@ -386,9 +411,58 @@
           box_yellow.setAttribute('width',1);
           box_yellow.setAttribute('depth',1);
           box_yellow.setAttribute('rotation','0 45 0');
-          box_yellow.setAttribute('position','-16.704603962652797, 1, -1.8085777462497545')
+          box_yellow.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
 
           scene.appendChild(box_yellow);
+
+          console.log('yellow', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+
+
+      var free1=maze_height-4,free2=maze_width-4;
+          while(maze[free1][free2] != 1){
+            free1--;
+            if(free1 <= 0){
+              free1 = maze_height-4;
+              free2--;
+            }
+          }
+
+          console.log('is this working?')
+      var box_green = document.createElement("a-box");
+          box_green.setAttribute('static-body','');
+          box_green.setAttribute('color','green');
+          box_green.setAttribute('id','green');
+          box_green.setAttribute('height',1);
+          box_green.setAttribute('width',1);
+          box_green.setAttribute('depth',1);
+          box_green.setAttribute('rotation','0 45 0');
+          box_green.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+
+          scene.appendChild(box_green);
+          console.log('green', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+
+          var free1=maze_height-5,free2=maze_width-5;
+          while(maze[free1][free2] != 1){
+            free1--;
+            if(free1 <= 0){
+              free1 = maze_height-5;
+              free2--;
+            }
+          }
+
+
+      var box_orange = document.createElement("a-box");
+      box_orange.setAttribute('static-body','');
+      box_orange.setAttribute('color','orange');
+      box_orange.setAttribute('id','orange');
+      box_orange.setAttribute('height',1);
+      box_orange.setAttribute('width',1);
+      box_orange.setAttribute('depth',1);
+      box_orange.setAttribute('rotation','0 45 0');
+      box_orange.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+
+          scene.appendChild(box_orange);
+          console.log('orange', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
 
       // Print all walls as boxes
       for(var i = 0; i < maze_height; i++){
