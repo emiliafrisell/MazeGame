@@ -20,6 +20,7 @@ const getRandomNumbers = (w, h) => {
 }
 
 const addBox = (color) => {
+  console.log(width,height)
 
     let boxLocation = getRandomNumbers(width, height);
     console.log(boxLocation)
@@ -32,7 +33,7 @@ const addBox = (color) => {
     box.setAttribute('width', 1);
     box.setAttribute('depth', 1);
     box.setAttribute('rotation','0 45 0');
-    box.setAttribute('position', (3*(boxLocation[0]-(width-1)*.5))+' 1 '+(3*(boxLocation[0]-(height-1)*.5)))
+    box.setAttribute('position', (3*(boxLocation[0]-(width-1)*.5))+' 1 '+(3*(boxLocation[1]-(height-1)*.5)))
 
     return box;
 }

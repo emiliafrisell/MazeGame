@@ -64,6 +64,15 @@ const URL = "./";
         const prediction = await model.predict(webcam.canvas);
         for (let i = 0; i < maxPredictions; i++) {
             if (prediction[i].probability.toFixed(2) > 0.5 && prediction[i].className == 'Coffee') {
+                coffee = true;
+                document.getElementById('gate1').setAttribute('rotation', '0 90 0')
+                document.getElementById('gate1').setAttribute('position', '5.2 -1.6 -7')
+                document.getElementById('gate2').setAttribute('rotation', '0 -100 0')
+                document.getElementById('gate2').setAttribute('position', '4.9 -1.6 -9.7')
+
+                document.getElementById('instructions2').style = 'display: none;'
+
+                webcam.stop();
             const classPrediction =
                 prediction[i].className + ": " + prediction[i].probability.toFixed(2);
             labelContainer.childNodes[i].innerHTML = classPrediction;

@@ -281,7 +281,7 @@
           box_price.setAttribute('width',1);
           box_price.setAttribute('depth',1);
           box_price.setAttribute('rotation','0 45 0');
-          box_price.setAttribute('position',(3*(free2-(maze_width-1)*.5)-2)+' 1 '+(3*(free1-(maze_height-1)*.5)-2));
+          box_price.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
 
           scene.appendChild(box_price);
 
