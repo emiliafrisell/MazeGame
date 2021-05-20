@@ -5,12 +5,14 @@
     <meta name="description" content="level 4 of exploring code module game">
 
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-extras@6.1.0/dist/aframe-extras.loaders.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
    
     <script>
 
       let coffee = false;
+      let beenToGate = false;
       // let 
       AFRAME.registerComponent('foo', {
         init: function() {
@@ -34,10 +36,11 @@
               }
             }
 
-            // if (id === 'gate') {
-            //   console.log('found the man')
-            //   document.querySelector('#instructions').style = 'display: block;';
-            // }
+            if (id === 'bench') {
+              // if(beenToGate)
+              console.log('found the man')
+              document.querySelector('#instructions2').style = 'display: block;';
+            }
             
           });
         }
@@ -72,6 +75,10 @@
         display: none;
         top: 25%;
       }
+      #instructions2 {
+        display: none;
+        top: 25%;
+      }
     </style>
 </head>
 <body>
@@ -94,7 +101,7 @@
 
   </div>
   
-  <div id="">
+  <div id="instructions2" class="info-box">
     <p>"Before you can go into the maze you must get me a cup of coffee"</p>
     <button type="button" id="start-camera">Start</button>
 
@@ -105,7 +112,8 @@
     <div id="webcam-container"></div>
   </div>
 
-  <a-scene physics="debug: true">
+  <!-- ="debug: true" -->
+  <a-scene physics>
     <a-sky color="#007FF0"></a-sky>
     <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="15" height="15" color="darkgreen"></a-plane>
 
@@ -114,7 +122,7 @@
         <img src="assets/door.png" id="door">
         <img src="assets/corn.jpg" id="asset_wall">
         <img src="assets/exit.jpg" id="asset_entrance">
-        <a-asset-item src="assets/Old-Man-Idle.fbx" id="asset_character"></a-asset-item>
+        <a-asset-item src="assets/Sitting-Idle.fbx" id="asset_character"></a-asset-item>
     </a-assets>
     
 
@@ -171,15 +179,29 @@
         shadow
       ></a-gltf-model>
 
-        <!-- <a-gltf-model
-        position="0 -0.6 -5.5"
-          src="assets/roadscene.glb"
+      <!-- BENCH -->
+        <a-gltf-model
+        position="-4 -1 0"
+          src="assets/bench.glb"
+          rotation="0 140 0"
           animation-mixer="clip: *;"
-          scale="0.06 0.06 0.06"
+          scale="1 1 1"
           shadow
-          static-body -->
-        <!-- ></a-gltf-model> -->
-    <!-- </a-entity> -->
+          static-body
+          id="bench"
+        ></a-gltf-model>
+
+        <a-gltf-model
+        position="-4 0.1 0"
+          src="assets/man.glb"
+          rotation="0 140 0"
+          animation-mixer="clip: *;"
+          scale="0.5 0.5 0.5"
+          shadow
+          static-body
+          id="bench"
+        ></a-gltf-model>
+
     <!-- 
         <a-box
         static-body
@@ -188,7 +210,7 @@
         position="1 1 -4"></a-box> -->
 
         <!-- TREES -->
-    <a-gltf-model
+    <!-- <a-gltf-model
       src="assets/tree.glb"
       position="0 0.7 4"
       animation-mixer="clip: *;"
@@ -196,7 +218,7 @@
       static-body
       id="tree"
       scale="2 2 2"
-    ></a-gltf-model>
+    ></a-gltf-model> -->
     <a-gltf-model
       src="assets/tree.glb"
       position="-3 0.5 0"
