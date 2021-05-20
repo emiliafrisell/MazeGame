@@ -25,21 +25,27 @@
             // e.detail.contact; // Stats about the collision (CANNON.ContactEquation).
             // e.detail.contact.ni; // Normal (direction) of the collision (CANNON.Vec3).
 
-            if (id == 'gate') {
+            if (id == 'gate1' || id == 'gate2') {
 
               if (coffee === true) {
               window.location.href = 'maze.html';
               } else {
+                beenToGate = true;
+                document.getElementById('text').innerHTML = 'The gates to the maze seems to be closed.. Maybe there\'s someone around here that can help'
                 document.querySelector('#instructions').style = 'display: block;';
-
                 console.log('get coffee first')
               }
             }
 
             if (id === 'bench') {
-              // if(beenToGate)
+              if (beenToGate) {
               console.log('found the man')
               document.querySelector('#instructions2').style = 'display: block;';
+              } else {
+                document.getElementById('text').innerHTML = 'why hello there'
+                document.querySelector('#instructions').style = 'display: block;';
+
+              }
             }
             
           });
@@ -89,8 +95,6 @@
 
     <p>You are on your way to the Medium. But in order to get there you need 
       to go through the Pleasantville Enchanting Corn Maze.</p>
-    <p>When you get to the maze the door won't open. You go to talk to a man 
-      standing close to the entrance .. </p>
       
       <button type="button" id="start-button">Ok</button>
     </div>
@@ -113,7 +117,7 @@
   </div>
 
   <!-- ="debug: true" -->
-  <a-scene physics>
+  <a-scene physics="debug: true">
     <a-sky color="#007FF0"></a-sky>
     <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="15" height="15" color="darkgreen"></a-plane>
 
@@ -121,7 +125,7 @@
     <a-assets>
         <img src="assets/door.png" id="door">
         <img src="assets/corn.jpg" id="asset_wall">
-        <img src="assets/exit.jpg" id="asset_entrance">
+        <img src="assets/exit3.png" id="asset_entrance">
         <!-- <a-asset-item src="assets/Sitting-Idle.fbx" id="asset_character"></a-asset-item> -->
     </a-assets>
     
@@ -239,12 +243,13 @@
     ></a-gltf-model>
 
 
+    <!-- GATES -->
       <a-gltf-model
       src="assets/gate.glb"
       position="3.1 -1.6 -7.5"
       rotation="0 -10 0"
       animation-mixer="clip: *;"
-      id="gate"
+      id="gate1"
       shadow
       static-body
       scale="1.5 1.5 1.5" 
@@ -254,14 +259,16 @@
     src="assets/gate.glb"
     position="4.1 -1.6 -7.2"
     animation-mixer="clip: *;"
-    id="gate"
+    id="gate2"
     shadow
     static-body
     scale="1.5 1.5 1.5" 
   ></a-gltf-model>
 
+    <!-- Using the asset management system. -->
+    <a-image  static-body src="#asset_entrance" position="5 0.3 -8.7" width="2" height="7" id='entrance'></a-image>
     <a-box static-body position="0 0 -9" width="15" height="4" depth="0.5" material="src:#asset_wall; repeat: 7 2"></a-box>
-    <a-box static-body position="5 -0.7 -8.99" width="2" height="5" depth="0.5" material="src:#asset_entrance; repeat: 1 2" id='entrance'></a-box>
+
 
     <!-- <a-box dynamic-body position="0 1 -2" color="#4CC3D9" width="1" height="1" depth="1"></a-box> -->
 
