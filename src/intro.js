@@ -71,11 +71,15 @@ const URL = "./";
                 document.getElementById('gate2').setAttribute('position', '4.9 -1.6 -9.7')
 
                 document.getElementById('instructions2').style = 'display: none;'
+                document.getElementById('camera-container').style = 'display: none;'
+
+                document.getElementById('text').innerHTML = 'Thank you, I have now opened the gates for you'
+                document.querySelector('#instructions').style = 'display: block;';
 
                 webcam.stop();
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
+            // const classPrediction =
+            //     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            // labelContainer.childNodes[i].innerHTML = classPrediction;
             // character = document.createElement("a-box");
             // character.setAttribute('static-body','');
       
