@@ -206,7 +206,7 @@
         }
       }
       var cam = document.getElementById('camera');
-      cam.setAttribute('position','-25.5 2.3 -17');
+      cam.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1.7 '+(3*(free1-(maze_height-1)*.5)));
       
 
       // // Print instructions
@@ -221,125 +221,43 @@
       // plane_instructions.setAttribute('material','src: #asset_instruction;');
       // scene.appendChild(plane_instructions); 
 
-      // console.log('inst', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
-      // console.log('blue', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
-
 
       var entity = document.createElement('a-entity')
-      entity.setAttribute('position','-25.5 1.2 -20');
-      // entity.setAttribute('id', 'character');
+          entity.setAttribute('position','-25.5 1.2 -20');
+          entity.setAttribute('height',2);
+          entity.setAttribute('width',1);
+          entity.setAttribute('id', 'test');
+          entity.setAttribute('static-body','');
+          entity.setAttribute('color', 'red')
 
 
       // Print character
-      var character = document.createElement("a-box");
-      character.setAttribute('static-body','');
-
-      character.setAttribute('height',2);
-      character.setAttribute('width',1);
-
-      // character.setAttribute('look-at', '#camera');
-      character.setAttribute('rotation','0 45 10');
-      character.setAttribute('id', 'character');
-      character.setAttribute('on-gaze','');
-      character.setAttribute('position','-25.5 1.2 -20');
-      character.setAttribute('color', 'red')
-      // character.setAttribute('src', '#asset_character');
-      // character.setAttribute('animation-mixer', 'clip: *;')
-      character.setAttribute('shadow', "type: basic")
-      // entity.appendChild(character); 
-      // scene.appendChild(character); 
-
-    //   <a-gltf-model
-    //   src="out.glb"
-    //   position="-25.5 2.2 -19.5"
-    //   animation-mixer="clip: *;"
-    //   shadow
-    // ></a-gltf-model>
-// --------------------------------------------------------------------------------------------------
-
-			// const API_KEY = 'AIzaSyD-zAkGYfmoW2fTN1-LY7jB19IotsCln54';
-
-			// function loadAsset( id ) {
-
-			// 	var url = `https://poly.googleapis.com/v1/assets/${id}/?key=${API_KEY}`;
-
-			// 	var request = new XMLHttpRequest();
-			// 	request.open( 'GET', url, true );
-			// 	request.addEventListener( 'load', function ( event ) {
-
-			// 		var asset = JSON.parse( event.target.response );
-
-			// 		// asset_name.textContent = asset.displayName;
-			// 		// asset_author.textContent = asset.authorName;
-
-			// 		var format = asset.formats.find( format => { return format.formatType === 'OBJ'; } );
-
-			// 		if ( format !== undefined ) {
-
-			// 			var obj = format.root;
-			// 			var mtl = format.resources.find( resource => { return resource.url.endsWith( 'mtl' ) } );
-
-			// 			var path = obj.url.slice( 0, obj.url.indexOf( obj.relativePath ) );
-
-			// 			var loader = new THREE.MTLLoader();
-			// 			loader.setCrossOrigin( true );
-			// 			loader.setMaterialOptions( { ignoreZeroRGBs: true } );
-			// 			loader.setTexturePath( path );
-			// 			loader.load( mtl.url, function ( materials ) {
-
-			// 				var loader = new THREE.OBJLoader();
-			// 				loader.setMaterials( materials );
-			// 				loader.load( obj.url, function ( object ) {
-
-			// 					var box = new THREE.Box3();
-			// 					box.setFromObject( object );
-
-			// 					// re-center
-
-			// 					var center = box.getCenter();
-			// 					center.y = box.min.y;
-			// 					object.position.sub( center );
-
-			// 					// scale
-
-			// 					var scaler = new THREE.Group();
-			// 					scaler.add( object );
-			// 					scaler.scale.setScalar( 6 / box.getSize().length() );
-			// 					scene.add( scaler );
-
-			// 				} );
-
-			// 			} );
-
-			// 		}
-
-			// 	} );
-			// 	request.send( null );
-
-			// }
-
-			// if ( API_KEY.startsWith( '**' ) ) {
-
-			// 	alert( 'Sample incorrectly set up. Please enter your API Key for the Poly API in the API_KEY variable.' );
-
-			// }
-
-			// loadAsset( '5vbJ5vildOq' );
-
-
-// --------------------------------------------------------------------------------------------------
+      var character = document.createElement("a-gltf-model");
+          character.setAttribute('static-body','');
+          character.setAttribute('look-at', '#camera');
+          character.setAttribute('rotation','0 45 10');
+          character.setAttribute('id', 'character');
+          character.setAttribute('on-gaze','');
+          character.setAttribute('position','-25.5 1.2 -20');
+          character.setAttribute('src', '#asset_character');
+          character.setAttribute('animation-mixer', 'clip: *;')
+          character.setAttribute('scale', '0.01 0.01 0.01')
+          character.setAttribute('shadow', "type: basic")
+          entity.appendChild(character); 
+          scene.appendChild(entity);
+      
 
       //reload
       var reload = document.createElement("a-box");
-      reload.setAttribute('on-click','');
-      reload.setAttribute('height',0.3);
-      reload.setAttribute('width',0.3);
-      reload.setAttribute('look-at','#camera');
-      reload.setAttribute('rotation','0 90 0');
-      reload.setAttribute('position','-25.5 2.2 -19.5');
-      reload.setAttribute('material','src: #asset_reload;');
+          reload.setAttribute('on-click','');
+          reload.setAttribute('height',0.3);
+          reload.setAttribute('width',0.3);
+          reload.setAttribute('look-at','#camera');
+          reload.setAttribute('rotation','0 90 0');
+          reload.setAttribute('position','-25.5 2.2 -19.5');
+          reload.setAttribute('material','src: #asset_reload;');
 
-      scene.appendChild(reload);
+          scene.appendChild(reload);
 
       // Set final portal position
       var free1=maze_height-1,free2=maze_width-1;
@@ -356,113 +274,107 @@
       // door
       var box_price = document.createElement("a-box");
           box_price.setAttribute('static-body','');
+          box_price.setAttribute('look-at','#camera');
           box_price.setAttribute('src','#door');
           box_price.setAttribute('id','price');
-          box_price.setAttribute('height',4);
-          box_price.setAttribute('width',2);
-          box_price.setAttribute('depth',2);
+          box_price.setAttribute('height',2);
+          box_price.setAttribute('width',1);
+          box_price.setAttribute('depth',1);
           box_price.setAttribute('rotation','0 45 0');
           box_price.setAttribute('position',(3*(free2-(maze_width-1)*.5)-2)+' 1 '+(3*(free1-(maze_height-1)*.5)-2));
 
           scene.appendChild(box_price);
 
 
-     var free1=maze_height-2,free2=maze_width-2;
-      while(maze[free1][free2] != 1){
-        free1--;
-        if(free1 <= 0){
-          free1 = maze_height-2;
-          free2--;
+    //  var free1=maze_height-2,free2=maze_width-2;
+    //   while(maze[free1][free2] != 1){
+    //     free1--;
+    //     if(free1 <= 0){
+    //       free1 = maze_height-2;
+    //       free2--;
 
-        }
-      }
+    //     }
+    //   }
 
-      var box_blue = document.createElement("a-box");
-          box_blue.setAttribute('static-body','');
-          box_blue.setAttribute('color','blue');
-          box_blue.setAttribute('id','blue');
-          box_blue.setAttribute('height',1);
-          box_blue.setAttribute('width',1);
-          box_blue.setAttribute('depth',1);
-          box_blue.setAttribute('rotation','0 45 0');
-          box_blue.setAttribute('position', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+      addBoxes(maze_width, maze_height);
 
-          scene.appendChild(box_blue);
+      // var box_blue = document.createElement("a-box");
+      //     box_blue.setAttribute('static-body','');
+      //     box_blue.setAttribute('color','blue');
+      //     box_blue.setAttribute('id','blue');
+      //     box_blue.setAttribute('height',1);
+      //     box_blue.setAttribute('width',1);
+      //     box_blue.setAttribute('depth',1);
+      //     box_blue.setAttribute('rotation','0 45 0');
+      //     box_blue.setAttribute('position', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
 
-          console.log('blue', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
-
-
-      var free1=maze_height-3,free2=maze_width-3;
-          while(maze[free1][free2] != 1){
-            free1--;
-            if(free1 <= 0){
-              free1 = maze_height-3;
-              free2--;
-            }
-          }
-      console.log(free1,free2)
+      //     scene.appendChild(box_blue);
 
 
-      var box_yellow = document.createElement("a-box");
-          box_yellow.setAttribute('static-body','');
-          box_yellow.setAttribute('color','yellow');
-          box_yellow.setAttribute('id','yellow');
-          box_yellow.setAttribute('height',1);
-          box_yellow.setAttribute('width',1);
-          box_yellow.setAttribute('depth',1);
-          box_yellow.setAttribute('rotation','0 45 0');
-          box_yellow.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
-
-          scene.appendChild(box_yellow);
-
-          console.log('yellow', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+      // var free1=maze_height-3,free2=maze_width-3;
+      //     while(maze[free1][free2] != 1){
+      //       free1--;
+      //       if(free1 <= 0){
+      //         free1 = maze_height-3;
+      //         free2--;
+      //       }
+      //     }
 
 
-      var free1=maze_height-4,free2=maze_width-4;
-          while(maze[free1][free2] != 1){
-            free1--;
-            if(free1 <= 0){
-              free1 = maze_height-4;
-              free2--;
-            }
-          }
+      // var box_yellow = document.createElement("a-box");
+      //     box_yellow.setAttribute('static-body','');
+      //     box_yellow.setAttribute('color','yellow');
+      //     box_yellow.setAttribute('id','yellow');
+      //     box_yellow.setAttribute('height',1);
+      //     box_yellow.setAttribute('width',1);
+      //     box_yellow.setAttribute('depth',1);
+      //     box_yellow.setAttribute('rotation','0 45 0');
+      //     box_yellow.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
 
-          console.log('is this working?')
-      var box_green = document.createElement("a-box");
-          box_green.setAttribute('static-body','');
-          box_green.setAttribute('color','green');
-          box_green.setAttribute('id','green');
-          box_green.setAttribute('height',1);
-          box_green.setAttribute('width',1);
-          box_green.setAttribute('depth',1);
-          box_green.setAttribute('rotation','0 45 0');
-          box_green.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
-
-          scene.appendChild(box_green);
-          console.log('green', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
-
-          var free1=maze_height-5,free2=maze_width-5;
-          while(maze[free1][free2] != 1){
-            free1--;
-            if(free1 <= 0){
-              free1 = maze_height-5;
-              free2--;
-            }
-          }
+      //     scene.appendChild(box_yellow);
 
 
-      var box_orange = document.createElement("a-box");
-      box_orange.setAttribute('static-body','');
-      box_orange.setAttribute('color','orange');
-      box_orange.setAttribute('id','orange');
-      box_orange.setAttribute('height',1);
-      box_orange.setAttribute('width',1);
-      box_orange.setAttribute('depth',1);
-      box_orange.setAttribute('rotation','0 45 0');
-      box_orange.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+      // var free1=maze_height-4,free2=maze_width-4;
+      //     while(maze[free1][free2] != 1){
+      //       free1--;
+      //       if(free1 <= 0){
+      //         free1 = maze_height-4;
+      //         free2--;
+      //       }
+      //     }
 
-          scene.appendChild(box_orange);
-          console.log('orange', (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+      // var box_green = document.createElement("a-box");
+      //     box_green.setAttribute('static-body','');
+      //     box_green.setAttribute('color','green');
+      //     box_green.setAttribute('id','green');
+      //     box_green.setAttribute('height',1);
+      //     box_green.setAttribute('width',1);
+      //     box_green.setAttribute('depth',1);
+      //     box_green.setAttribute('rotation','0 45 0');
+      //     box_green.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+
+      //     scene.appendChild(box_green);
+
+      //     var free1=maze_height-5,free2=maze_width-5;
+      //     while(maze[free1][free2] != 1){
+      //       free1--;
+      //       if(free1 <= 0){
+      //         free1 = maze_height-5;
+      //         free2--;
+      //       }
+      //     }
+
+      // var box_orange = document.createElement("a-box");
+      // box_orange.setAttribute('static-body','');
+      // box_orange.setAttribute('color','orange');
+      // box_orange.setAttribute('id','orange');
+      // box_orange.setAttribute('height',1);
+      // box_orange.setAttribute('width',1);
+      // box_orange.setAttribute('depth',1);
+      // box_orange.setAttribute('rotation','0 45 0');
+      // box_orange.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
+
+      //     scene.appendChild(box_orange);
 
       // Print all walls as boxes
       for(var i = 0; i < maze_height; i++){

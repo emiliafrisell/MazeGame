@@ -1,271 +1,393 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <title>MazeGame</title>
-    <meta name="description" content="MazeGame - Fun Trivia Maze Game built on A-frame & Three.js">
+    <meta name="description" content="level 4 of exploring code module game">
 
-    <!--Libraries & external scripts Import-->
-    <script src="libs/aframe.js"></script>    <!--Aframe.js(v0.3.0) Library-->
-    <script src="libs/aframe-extras.js"></script>    <!--Aframe-extras.js(v2.6.1) Library-->
-    <script src="libs/aframe-text-component.min.js"></script>   <!--Aframe library used for rendering text-->
-    <script src="libs/lz-string.min.js"></script>   <!--LZ-based compression algorithm for JavaScript-->
-    <script src="libs/aframe-bmfont-text-component.js"></script>    <!--Aframe library used for rendering bitmap font text-->
-    <script src="src/common.js"></script>    <!--JavaScript for the game-->
-    <script src="https://cdn.jsdelivr.net/npm/aframe-glow@1.0.1/dist/aframe-glow-component.js"></script>
-
-    
-
-    <!-- FBX -->
-    <!-- <script src="https://unpkg.com/three@latest/examples/js/libs/inflate.min.js"></script> -->
-    <!-- <script src="https://unpkg.com/three"></script> -->
-    <!-- <script
-      src="https://unpkg.com/three/examples/js/loaders/FBXLoader2.js"
-      ></script> -->
-
-    <!-- ENABLE ANIMATION -->
-    <script src="https://unpkg.com/aframe-extras@6.1.0/dist/aframe-extras.loaders.min.js"></script>
-
-    <!-- THREE -->
-		<!-- <script src="third_party/three.js/js/three.min.js"></script>
-		<script src="third_party/three.js/js/OBJLoader.js"></script>
-		<script src="third_party/three.js/js/MTLLoader.js"></script> -->
-
-  </head>
-
-  <body>
-    <button type="button" id="start-camera">Start</button>
-    <div id="webcam-container"></div>
-    <div id="label-container"></div>
-
-
-    <!--Anchored VR Design-->
-    <!--Aframe scene starts here-->
-    <!-- fog="type: linear; color: #AAB; near: 0; far:10;"  -->
-    <a-scene fog="type: linear; color: #AAB; near: 0; far:10;" physics id="scene" >
-      <a-sky color="#007FF0"></a-sky>
-
-      <!--Importing Assets-->
-      <!--Diegetic UI Elements-->
-      <a-assets>
-        <img src="assets/door.png" id="door">
-        <img src="assets/corn.jpg" id="asset_wall">
-        <img src="assets/blue-sky.png" id="asset_roof">
-        <img src="assets/path.jpeg" id="asset_ground">
-        <!-- <img src="assets/instruction.jpg" id="asset_instruction"> -->
-        <img src="assets/reload.png" id="asset_reload">
-        <a-asset-item src="assets/Old-Man-Idle.fbx" id="asset_character"></a-asset-item>
-      </a-assets>
-      <!--Entity to add background noise-->
-      <a-entity sound="src: url(assets/audio/backgroundnoise.mp3); autoplay: true; loop:true; distanceModel:linear">
-      </a-entity>
-      <a-gltf-model
-                src="assets/tree.glb"
-                static-body
-                position="-25.5 1 -20"
-                scale="0.001 0.001 0.001"
-                animation-mixer="clip: *;"
-                shadow
-                id="test"
-              ></a-gltf-model>
-      <!--Camera/Player body Entity-->
-      <a-entity static-body
-                sound="src: url(assets/audio/bat.mp3); on: collide; volume:0.01;"  
-                velocity="0 0 0" 
-                rotation="0 0 0" 
-                position="0 1.6 -2" 
-                id="camera" 
-                camera="" 
-                kinematic-body 
-                universal-controls>
-                <!--Entity to create a crosshair-->
-                <!--Crosshair is a Non-Diegetic UI Element-->
-                <a-entity cursor="fuse: true; fuseTimeout: 500"
-                  position="0 0 -1"
-                  geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-                  material="color:#20639B; shader: flat">
-                </a-entity>
-                <!--Entity for Timer-->
-                <!--Timer is a Non-Diegetic UI Element-->
-                <a-entity text="text: Time;size:.09;height:0.001" material="color:black" position="-0.1 -0.7 -1" id="board"></a-entity>
-                <!--Entity for Winner text-->
-                <a-entity text="text: ;size:0.1;height:0.001" material="color:#f4ff61" position="-0.6 0 -1" id="winner"></a-entity>
-                <a-entity text="text: ;size:0.1;height:0.001" material="color:#f4ff61" position="-0.6 0 -1" id="red"></a-entity>
-      </a-entity>               
-              
-    </a-scene>
-    <!--Aframe scene ends here-->
-
-    <!--JavaScript Starts here-->
-    
+    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+   
     <script>
-      //  Reload Game Component
-      AFRAME.registerComponent('on-click', {
-        init: function () {
-          this.el.addEventListener('click', function (evt) {
-            location.reload();
+
+      let coffee = false;
+      // let 
+      AFRAME.registerComponent('foo', {
+        init: function() {
+          this.el.addEventListener('collide', function(e) {
+            let id = e.detail.body.el.getAttribute('id');
+            console.log(id)
+            // console.log('Player has collided with ', e.detail.body.el);
+            // e.detail.target.el; // Original entity (playerEl).
+            // e.detail.body.el; // Other entity, which playerEl touched.
+            // e.detail.contact; // Stats about the collision (CANNON.ContactEquation).
+            // e.detail.contact.ni; // Normal (direction) of the collision (CANNON.Vec3).
+
+            if (id == 'gate') {
+
+              if (coffee === true) {
+              window.location.href = 'maze.html';
+              } else {
+                document.querySelector('#instructions').style = 'display: block;';
+
+                console.log('get coffee first')
+              }
+            }
+
+            // if (id === 'gate') {
+            //   console.log('found the man')
+            //   document.querySelector('#instructions').style = 'display: block;';
+            // }
+            
           });
         }
-      });
-
-      // Instructions Glow Component
-      AFRAME.registerComponent('on-gaze', {
-      init: function () {
-        this.el.addEventListener('mouseenter', function (evt) {
-        // var glow = document.getElementById("character");
-        // glow.setAttribute('glow','side: front; scale: 2; color: #e8cd00; c: 0.1; p: 3.5;');
-      });
-      this.el.addEventListener('mouseleave', function (evt) {
-        // var glow = document.getElementById("character");
-        // glow.setAttribute('glow','enabled:false');
-      });
-      }
-      });
-
-
-      /* Maze formation */
-      
-      var maze;
-
-      // Player body collision Text display
-      var cam = document.getElementById('camera');
-      let found = [];
-
-      cam.addEventListener('collide', function (e) {
-        
-        if (e.detail.body.el.getAttribute('id') == 'character') {
-          
-          console.log('hit the box')
-          
-          var red = document.getElementById('red');
-          var attr_text = red.getAttribute('text');
-          attr_text.text = "You Found the box!";
-          red.setAttribute('text', attr_text);
-          
-          setTimeout(() => {  
-            attr_text.text = "";
-            red.setAttribute('text', attr_text);
-          }, 1500)
-
-          document.getElementById('character').setAttribute('visible', 'false')
-          document.getElementById('character').setAttribute('position', '0 -1 0');
-          
-        }
-
-        if (e.detail.body.el.getAttribute('id') == 'test') {
-         console.log('working owirng')
-        }
-        if (e.detail.body.el.getAttribute('id') == 'yellow') {
-          found.push(e.detail.body.el.getAttribute('id'))
-          document.getElementById('yellow').setAttribute('position', '0 -1 0');
-
-        }
-
-        if (e.detail.body.el.getAttribute('id') == 'blue') {
-          found.push(e.detail.body.el.getAttribute('id'))
-          document.getElementById('blue').setAttribute('position', '0 -1 0');
-
-        }
-        
-        if (e.detail.body.el.getAttribute('id') == 'green') {
-          found.push(e.detail.body.el.getAttribute('id'))
-          document.getElementById('green').setAttribute('position', '0 -1 0');
-
-        }
-
-        if (e.detail.body.el.getAttribute('id') == 'orange') {
-          console.log('found orange')
-          found.push(e.detail.body.el.getAttribute('id'))
-          document.getElementById('orange').setAttribute('position', '0 -1 0');
-
-        }
-
-        if (e.detail.body.el.getAttribute('id') == 'price') {
-          var winner = document.getElementById('winner');
-          var attr_text = winner.getAttribute('text');
-
-          console.log(found)
-
-          if(found.length < 2) {
-            attr_text.text = 'find more';
-            winner.setAttribute('text', attr_text);
-
-            setTimeout(() => {  
-              attr_text.text = "";
-              winner.setAttribute('text', attr_text);
-            }, 1500)
-
-          } else {
-            clearInterval(counter);
-            
-            attr_text.text = found;
-            winner.setAttribute('text', attr_text);
-
-          }
-        }
-        
-        console.log(cam.getAttribute('position'))
-
-      });
-
-
-      var seconds = 0;
-      var counter;
-      
-      // Creating a maze array
-      function init(width,height) {
-
-        clearInterval(counter);
-        maze = new Array(parseInt(height));
-
-        for (var i = 0; i < maze.length; i++) {
-          maze[i] = [].repeat(0, width);
-          // console.log(i+':',maze[i])
-        }
-
-
-        // Randomized path generation 
-        buildPath(maze,[0,0]);
-
-        if(typeof QueryString.maze == 'undefined'){
-          window.location.hash += '&maze='+LZString.compressToBase64(JSON.stringify(maze));
-        }else{
-          maze = JSON.parse(LZString.decompressFromBase64(QueryString.maze))
-        }
-        paintMaze(maze);
-
-        // Timer Function
-
-        seconds = 0;
-        counter = setInterval(function(){
-          var board = document.getElementById('board');
-          var attr_text = board.getAttribute('text');
-          attr_text.text = seconds++;
-          var sec = attr_text;
-          board.setAttribute('text',attr_text);
-        },1000);
-      }
-
-      // Maze Width & Height
-      
-      var width = QueryString.width;
-      var height = QueryString.height;
-      if(typeof width == 'undefined'){
-        width = 18;
-      }
-      if(typeof height == 'undefined'){
-        height = 14;
-      }
-      init(width,height);
-
+      })
 
     </script>
+    <style>
+      .info-box {
+        z-index: 100; 
+        position: relative; 
+        background-color: yellow;
+        width: 300px; 
+        margin: 0 auto; 
+        padding: 20px; 
+        text-align: center; 
+        border-radius: 10px; 
+        box-shadow: 2px 2px 2px gray;
+      }
 
-    <!-- TEACHABLE -->
+      #start {
+        top: 30%; 
+      }
+
+      #camera-container {
+        position: absolute; 
+        top:0; 
+        left: 0; 
+        z-index: 100;
+      }
+
+      #instructions {
+        display: none;
+        top: 25%;
+      }
+    </style>
+</head>
+<body>
+
+  <div id='start' class="info-box">
+
+    <h1>Level 4</h1>
+
+    <p>You are on your way to the Medium. But in order to get there you need 
+      to go through the Pleasantville Enchanting Corn Maze.</p>
+    <p>When you get to the maze the door won't open. You go to talk to a man 
+      standing close to the entrance .. </p>
+      
+      <button type="button" id="start-button">Ok</button>
+    </div>
+    
+    <div id='instructions' class="info-box">
+      <p id="text">The gates to the maze seems to be closed.. Maybe there's someone around here that can help</p>
+      <button type="button" id="ok-button">Ok</button>
+
+  </div>
+  
+  <div id="">
+    <p>"Before you can go into the maze you must get me a cup of coffee"</p>
+    <button type="button" id="start-camera">Start</button>
+
+  </div>
+
+  <div id="camera-container">
+    <div id="label-container"></div>
+    <div id="webcam-container"></div>
+  </div>
+
+  <a-scene physics="debug: true">
+    <a-sky color="#007FF0"></a-sky>
+    <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="15" height="15" color="darkgreen"></a-plane>
+
+    <!-- ASSETS -->
+    <a-assets>
+        <img src="assets/door.png" id="door">
+        <img src="assets/corn.jpg" id="asset_wall">
+        <img src="assets/exit.jpg" id="asset_entrance">
+        <a-asset-item src="assets/Old-Man-Idle.fbx" id="asset_character"></a-asset-item>
+    </a-assets>
+    
+
+
+    <!-- Camera Entity -->
+    <a-entity id="camera" position="0 1.6 0" rotation="0 0 0">
+      <a-entity id="camera" camera look-controls wasd-controls kinematic-body foo>
+      </a-entity>
+      <a-entity text="text: Time;size:.07;height:0.001" material="color:red" position="1 0.65 -1" id="board"></a-entity>
+      <a-entity text="text:Test ;size:0.1;height:0.001" material="color:#f4ff61" position="-0.6 0 -1" id="red"></a-entity>
+    </a-entity>
+
+    <!-- CORN STALKS -->
+    <a-gltf-model
+        src="assets/cornstalks.glb"
+        position="-3  0 -8.5"
+        rotation=' 0 90 0'
+        animation-mixer="clip: *;"
+        scale="0.14 0.14 0.14"
+        shadow
+        static-body
+        id='man'
+      ></a-gltf-model>
+      <a-gltf-model
+        src="assets/cornstalks.glb"
+        position="-5.5  0 -8.5"
+        rotation=' 0 90 0'
+        animation-mixer="clip: *;"
+        scale="0.14 0.14 0.14"
+        shadow
+      ></a-gltf-model>
+      <a-gltf-model
+      src="assets/cornstalks.glb"
+      position="0  0 -8.5"
+      rotation=' 0 90 0'
+      animation-mixer="clip: *;"
+      scale="0.14 0.14 0.14"
+      shadow
+      ></a-gltf-model>
+      <a-gltf-model
+        src="assets/cornstalks.glb"
+        position="2.5  0 -8.5"
+        rotation=' 0 90 0'
+        animation-mixer="clip: *;"
+        scale="0.14 0.14 0.14"
+        shadow
+      ></a-gltf-model>
+    <a-gltf-model
+        src="assets/cornstalks.glb"
+        position="7  0 -8.5"
+        rotation=' 0 90 0'
+        animation-mixer="clip: *;"
+        scale="0.14 0.14 0.14"
+        shadow
+      ></a-gltf-model>
+
+        <!-- <a-gltf-model
+        position="0 -0.6 -5.5"
+          src="assets/roadscene.glb"
+          animation-mixer="clip: *;"
+          scale="0.06 0.06 0.06"
+          shadow
+          static-body -->
+        <!-- ></a-gltf-model> -->
+    <!-- </a-entity> -->
+    <!-- 
+        <a-box
+        static-body
+        shadow
+        color="red"
+        position="1 1 -4"></a-box> -->
+
+        <!-- TREES -->
+    <a-gltf-model
+      src="assets/tree.glb"
+      position="0 0.7 4"
+      animation-mixer="clip: *;"
+      shadow
+      static-body
+      id="tree"
+      scale="2 2 2"
+    ></a-gltf-model>
+    <a-gltf-model
+      src="assets/tree.glb"
+      position="-3 0.5 0"
+      animation-mixer="clip: *;"
+      static-body
+      shadow
+      id="tree"
+      scale="3 3 3"
+    ></a-gltf-model>
+    <a-gltf-model
+      src="assets/tree.glb"
+      position="5 0.7 -1"
+      animation-mixer="clip: *;"
+      id="tree"
+      shadow
+      static-body
+      scale="1 1 1" 
+    ></a-gltf-model>
+
+
+      <a-gltf-model
+      src="assets/gate.glb"
+      position="3.1 -1.6 -7.5"
+      rotation="0 -10 0"
+      animation-mixer="clip: *;"
+      id="gate"
+      shadow
+      static-body
+      scale="1.5 1.5 1.5" 
+    ></a-gltf-model>
+
+    <a-gltf-model
+    src="assets/gate.glb"
+    position="4.1 -1.6 -7.2"
+    animation-mixer="clip: *;"
+    id="gate"
+    shadow
+    static-body
+    scale="1.5 1.5 1.5" 
+  ></a-gltf-model>
+
+    <a-box static-body position="0 0 -9" width="15" height="4" depth="0.5" material="src:#asset_wall; repeat: 7 2"></a-box>
+    <a-box static-body position="5 -0.7 -8.99" width="2" height="5" depth="0.5" material="src:#asset_entrance; repeat: 1 2" id='entrance'></a-box>
+
+    <!-- <a-box dynamic-body position="0 1 -2" color="#4CC3D9" width="1" height="1" depth="1"></a-box> -->
+
+
+  </a-scene>
+
+    <script src='src/intro.js'></script>
+
+      <!-- TEACHABLE -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
     <script src="src/teachable.js"></script>
-
-   <!--JavaScript ends here-->
-  </body>
+</body>
 </html>
+
+
+<!-- <html>
+  <html>
+    <head>
+      
+      <script src="https://unpkg.com/aframe@latest"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+      <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+       -->
+     <!-- <script src="libs/aframe.js"></script>   -->
+    <!-- <script src="libs/aframe-extras.js"></script> 
+    <script src="libs/aframe-text-component.min.js"></script>  -->
+    <!--<script src="libs/lz-string.min.js"></script>  
+    <script src="libs/aframe-bmfont-text-component.js"></script>   
+    <script src="src/game.js"></script>
+    <script src="src/common.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/aframe-glow@1.0.1/dist/aframe-glow-component.js"></script> -->
+<!-- 
+    </head>
+    <body>
+
+    <div style="z-index: 100;">
+      <button type="button" id="start-camera">Start</button>
+      <div id="webcam-container"></div>
+      <div id="label-container"></div>
+  <h1>heading test</h1>
+</div>
+
+  <div style="z-index: 1; margin-top: 100px;">
+      <a-scene physics id='intro'>
+        <a-sky color="green"></a-sky>
+        <a-plane
+          src="https://cdn.aframe.io/a-painter/images/floor.jpg"
+          rotation="-90 0 0"
+          width="30"
+          height="30"
+          static-body
+        ></a-plane>
+        
+        <a-gltf-model
+          src="assets/scene.glb"
+          position="0 0 -4"
+          animation-mixer="clip: *;"
+          scale="0.01 0.01 0.01"
+          shadow
+          static-body
+          id='man'
+        ></a-gltf-model>
+
+        <a-box color="red" position="2 1 -3" static-body id="box"></a-box>
+
+        <a-gltf-model
+          src="assets/tree.glb"
+          position="0 0.7 -8"
+          animation-mixer="clip: *;"
+          shadow
+          static-body
+          
+          scale="2 2 2"
+        ></a-gltf-model>
+        <a-gltf-model
+          src="assets/tree.glb"
+          position="-3 0.5 0"
+          animation-mixer="clip: *;"
+          static-body
+          shadow
+          scale="3 3 3"
+        ></a-gltf-model>
+        <a-gltf-model
+          src="assets/tree.glb"
+          position="4 0.7 -1"
+          animation-mixer="clip: *;"
+          shadow
+          static-body
+          scale="3 3 3" 
+        ></a-gltf-model>-->
+<!-- 
+        <a-image
+          position="0 2 -15"
+          src="https://cdn.glitch.com/62ad2894-2a60-4a5c-9b61-b7bb6a5a87e1%2Fpattern-Frame%2089.png?v=1620827921646"
+        ></a-image>
+        <a-image
+          style="z-index: -1"
+          position="2 2 -15"
+          src="https://cdn.glitch.com/62ad2894-2a60-4a5c-9b61-b7bb6a5a87e1%2Fpattern-Frame%2086.png?v=1620807808945"
+        ></a-image>
+
+        <a-image
+          position="-15 2 -8"
+          src="https://cdn.glitch.com/62ad2894-2a60-4a5c-9b61-b7bb6a5a87e1%2Fpattern-Frame%2088.png?v=1620827929818"
+          rotation="0 90 0"
+        ></a-image>
+        <a-image
+          position="-15 2 -10"
+          src="https://cdn.glitch.com/62ad2894-2a60-4a5c-9b61-b7bb6a5a87e1%2Fpattern-Frame%2087.png?v=1620827932986"
+          rotation="0 90 0"
+        ></a-image> 
+
+        <a-entity id="camera" position="0 1.6 0" kinematic-body> -->
+          <!-- Camera Entity -->
+          <!-- <a-entity id="camera" camera look-controls wasd-controls kinematic-body foo></a-entity>
+        </a-entity>
+      </a-scene>
+
+    </div>
+
+    <script>
+      var cam = document.getElementById('camera');
+
+      AFRAME.registerComponent('foo', {
+        init: function() {
+          this.el.addEventListener('collide', function(e) {
+            console.log('Player has collided with ', e.detail.body.el);
+            e.detail.target.el; // Original entity (playerEl).
+            e.detail.body.el; // Other entity, which playerEl touched.
+            e.detail.contact; // Stats about the collision (CANNON.ContactEquation).
+            e.detail.contact.ni; // Normal (direction) of the collision (CANNON.Vec3).
+          });
+        }
+      })
+
+      cam.addEventListener('collide', function (e) {
+        let id = e.detail.body.el.getAttribute('id')
+        console.log('collided with ' + id)
+      }
+
+      </script> -->
+    <!-- TEACHABLE -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script src="src/teachable.js"></script>
+
+    </body>
+  </html>
+</html> -->
