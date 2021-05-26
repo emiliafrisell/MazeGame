@@ -6,10 +6,10 @@ const hideInstructions = () => {
 }
 
 document.querySelector('#start-button').addEventListener('click', hideInstructions)
-document.querySelector('#ok-button').addEventListener('click', () => {
-    document.querySelector('#instructions').style = 'display: none;'
+// document.querySelector('#ok-button').addEventListener('click', () => {
+//     document.querySelector('#instructions').style = 'display: none;'
 
-})
+// })
 
 const URL = "./";
 
@@ -101,3 +101,4 @@ const URL = "./";
 }
         }
     }
+

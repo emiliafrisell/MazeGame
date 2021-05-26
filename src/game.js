@@ -38,6 +38,8 @@ const addBox = (color) => {
     return box;
 }
 
+{/* <a-cylinder position="1 0.75 -3" radius="0.5" height="0.05" color="#FFC65D" shadow rotation="90 0 0" animation="property: rotation; dur: 5000; dir: alternate; loop: true; easing: linear; to:  0  0 360;"></a-cylinder> */}
+
 const addBoxes = (width, height) => {
     console.log('add boxes')
 

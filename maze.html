@@ -5,8 +5,6 @@
     <title>MazeGame</title>
     <meta name="description" content="MazeGame - Fun Trivia Maze Game built on A-frame & Three.js">
 
-    <!-- <script src="https://unpkg.com/aframe@latest"></script> -->
-
     <!--Libraries & external scripts Import-->
      <script src="libs/aframe.js"></script> <!--   Aframe.js(v0.3.0) Library -->
     <script src="libs/aframe-extras.js"></script>    <!--Aframe-extras.js(v2.6.1) Library-->
@@ -28,7 +26,7 @@
     <!--Anchored VR Design-->
     <!--Aframe scene starts here-->
     <!-- fog="type: linear; color: #AAB; near: 0; far:10;"  -->
-    <a-scene physics id="scene" >
+    <a-scene physics id="scene" fog="type: linear; color: #AAB; near: 0; far:10;" >
       <!-- <a-sky color="#007FF0"></a-sky> -->
 
       <!--Importing Assets-->
@@ -151,57 +149,24 @@
           
         }
 
-        // if (e 
-
         if (id !== 'null' && id !== 'price') {
           addBoxToFound(id)
         }
-
-        // if (e.detail.body.el.getAttribute('id') == 'yellow') {
-        //   found.push(e.detail.body.el.getAttribute('id'))
-        //   document.getElementById('yellow').setAttribute('position', '0 -1 0');
-
-        // }
-
-        // if (e.detail.body.el.getAttribute('id') == 'blue') {
-        //   found.push(e.detail.body.el.getAttribute('id'))
-        //   document.getElementById('blue').setAttribute('position', '0 -1 0');
-
-        // }
-        
-        // if (e.detail.body.el.getAttribute('id') == 'green') {
-        //   found.push(e.detail.body.el.getAttribute('id'))
-        //   document.getElementById('green').setAttribute('position', '0 -1 0');
-        // }
-
-        // if (e.detail.body.el.getAttribute('id') == 'orange') {
-        //   console.log('found orange')
-        //   found.push(e.detail.body.el.getAttribute('id'))
-        //   document.getElementById('orange').setAttribute('position', '0 -1 0');
-
-        // }
-
-        // if (e.detail.body.el.getAttribute('id') == 'purple') {
-        //   found.push(e.detail.body.el.getAttribute('id'))
-        //   document.getElementById('purple').setAttribute('position', '0 -1 0');
-        // }
 
           // Found Items 
 
           var progress = document.getElementById('found');
             var attr_text = progress.getAttribute('text');
-            // console.log(attr_text)
-            attr_text.text = 'You\'ve found: ' + found;
+
+            attr_text.text = 'You\'ve found: ' + found.length;
             var prog = attr_text;
             progress.setAttribute('text', attr_text);
-
-          // console.log(found)
 
         if (e.detail.body.el.getAttribute('id') == 'price') {
           var winner = document.getElementById('winner');
           var attr_text = winner.getAttribute('text');
 
-          if(found.length < 2) {
+          if(found.length < 4) {
             attr_text.text = 'find more';
             winner.setAttribute('text', attr_text);
 
@@ -209,17 +174,15 @@
               attr_text.text = "";
               winner.setAttribute('text', attr_text);
             }, 1500)
-
+            
           } else {
             clearInterval(counter);
             
             attr_text.text = found;
             winner.setAttribute('text', attr_text);
-
+            window.location.href="end.html"
           }
         }
-        
-        // console.log(cam.getAttribute('position'))
 
       });
 
