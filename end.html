@@ -5,17 +5,17 @@
     <meta name="description" content="level 4 of exploring code module game">
 
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
-    <!-- <script src="https://unpkg.com/aframe-extras@6.1.0/dist/aframe-extras.loaders.min.js"></script> -->
-    <!-- <script src="libs/aframe-extras.js"></script>     Aframe-extras.js(v2.6.1) Library -->
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
-  
-   
+
+    <!-- CSS -->
+   <link rel="stylesheet" href="src/style.css">
+
     <script>
 
       let coffee = false;
       let beenToGate = false;
-      // let 
+
       AFRAME.registerComponent('foo', {
         init: function() {
           this.el.addEventListener('collide', function(e) {
@@ -55,51 +55,9 @@
       })
 
     </script>
-    <style>
-      .info-box {
-        z-index: 100; 
-        position: relative; 
-        background-color: yellow;
-        width: 300px; 
-        margin: 0 auto; 
-        padding: 20px; 
-        text-align: center; 
-        border-radius: 10px; 
-        box-shadow: 2px 2px 2px gray;
-      }
-
-      #start {
-        top: 30%; 
-      }
-
-      #camera-container {
-        position: absolute; 
-        top:0; 
-        left: 0; 
-        z-index: 100;
-      }
-
-      #instructions {
-        display: none;
-        top: 25%;
-      }
-      #instructions2 {
-        display: none;
-        top: 25%;
-      }
-    </style>
 </head>
 <body>
 <!-- 
-  <div id='start' class="info-box">
-
-    <h1>Level 4</h1>
-
-    <p>You are on your way to the Medium. But in order to get there you need 
-      to go through Pleasantville's Enchanting Corn Maze..</p>
-      
-      <button type="button" id="start-button">Ok</button>
-    </div>
     
     <div id='instructions' class="info-box">
       <p id="text">The gates to the maze seems to be closed.. Lets go see if we can get some help to open them..</p>
@@ -113,15 +71,33 @@
 
   </div> -->
 
-  <div id="camera-container">
+  <!-- <div id="camera-container">
     <div id="label-container"></div>
     <div id="webcam-container"></div>
+  </div> -->
+
+
+  <div id='start' class="info-box">
+
+    <div id="title">
+      <img src="assets/stamp.jpg" />
+      <h1>Level 4</h1>
+      <h3>The Maze</h3>
+    </div>
+    <div id="description">
+      <p>I finally made it out of the maze. Now i just need to give the old man his boxes before I can go to the Medium</p>
+       
+      <!-- You are on your way to the Medium. But in order to get there you need 
+        to go through Pleasantville's Enchanting Corn Maze.. -->
+
+      <button type="button" id="start-button">Ok</button>
+    </div>
   </div>
 
   <!-- ="debug: true" -->
   <a-scene physics="debug: true" fog="type: linear; color: #AAB; near: 0; far:14;">
     <a-sky color="#007FF0"></a-sky>
-    <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="20" height="40" material="src:#asset_ground; repeat: 2 4"></a-plane>
+    <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="40" height="40" material="src:#asset_ground; repeat: 4 4"></a-plane>
 
     <!-- ASSETS -->
     <a-assets>
@@ -136,7 +112,7 @@
     <a-entity id="camera" position="0 1.6 0" rotation="0 0 0">
       <a-entity id="camera" camera look-controls="pointerLockEnabled: true" wasd-controls kinematic-body foo>
         <!-- <a-entity text="value: Time;" material="color:red" position="0 0.3 0" id="board"></a-entity> -->
-        <a-entity text="value:Test; align: center;"  material="color:black" position="-0.6 0 -1" id="red"></a-entity>
+        <a-entity text="value: ; align: center;"  material="color:black" position="-0.6 0 -1" id="red"></a-entity>
         <a-entity cursor="fuse: true; fuseTimeout: 500"
                   position="0 0 -1"
                   geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
@@ -145,25 +121,25 @@
       </a-entity>
     </a-entity>
 
-    <a-cylinder position="1 0.75 -3" radius="0.5" height="0.05" color="#FFC65D" shadow rotation="90 0 0" animation="property: rotation; dur: 5000; dir: alternate; loop: true; easing: linear; to:  0  0 360;"></a-cylinder>
+    <!-- <a-cylinder position="1 0.75 -3" radius="0.5" height="0.05" color="#FFC65D" shadow rotation="90 0 0" animation="property: rotation; dur: 5000; dir: alternate; loop: true; easing: linear; to:  0  0 360;"></a-cylinder> -->
 
 
     <a-gltf-model
         static-body
         src="assets/house2.glb"
-        position="-3  0.7 -20"
+        position="-3  0.7 -25"
         rotation=' 0 0 0'
         animation-mixer="clip: *;"
         scale="0.014 0.014 0.014"
         shadow
       ></a-gltf-model>
 
-    <a-box static-body position="0 0 8" width="15" height="4" depth="0.5" material="src:#asset_wall; repeat: 7 2"></a-box> -->
+    <a-box static-body position="0 0 1" width="45" height="4" depth="0.5" material="src:#asset_wall; repeat: 21 2"></a-box> -->
 
     <!-- CORN STALKS -->
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="-3 0 7"
+            position="-3 0 -2.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -173,7 +149,7 @@
         ></a-gltf-model>
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="-5.5 0 7"
+            position="-5.5 0 -2.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -181,7 +157,7 @@
         ></a-gltf-model>
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="0 0 7"
+            position="4 0 -2.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -189,7 +165,7 @@
         ></a-gltf-model>
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="2.5  0 7"
+            position="-1.5  0 -2.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -197,7 +173,7 @@
         ></a-gltf-model>
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="7 0 7"
+            position="7 0 -2.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -205,7 +181,7 @@
         ></a-gltf-model>
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="-3 0 5"
+            position="-3 0 -0.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -215,7 +191,7 @@
         ></a-gltf-model>
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="-5.5 0 5"
+            position="-5.5 0 -0.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -223,7 +199,7 @@
         ></a-gltf-model>
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="0 0 5"
+            position="4 0 -0.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -231,7 +207,7 @@
         ></a-gltf-model>
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="2.5 0 5"
+            position="-1.5 0 -0.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -239,7 +215,7 @@
             ></a-gltf-model>
         <a-gltf-model
             src="assets/cornstalks.glb"
-            position="7 0 5"
+            position="7 0 -0.5"
             rotation=' 0 90 0'
             animation-mixer="clip: *;"
             scale="0.14 0.14 0.14"
@@ -277,8 +253,8 @@
 
 
     <!-- GATES -->
-    <a-gltf-model src="assets/gate.glb" animation-mixer="clip: *;" id="gate1" shadow="" static-body="" scale="1.5 1.5 1.5" gltf-model="" velocity="" rotation="0 10 0" position="3.2 -1.6 9"></a-gltf-model>
-    <a-gltf-model src="assets/gate.glb" animation-mixer="clip: *;" id="gate2" shadow="" static-body="" scale="1.5 1.5 1.5" gltf-model="" velocity="" position="3.8 -1.6 8.7"></a-gltf-model>
+    <a-gltf-model src="assets/gate.glb" animation-mixer="clip: *;" id="gate1" shadow="" static-body="" scale="1.5 1.5 1.5" gltf-model="" velocity="" rotation="0 10 0" position="-0.4 -1.6 1.95"></a-gltf-model>
+    <a-gltf-model src="assets/gate.glb" animation-mixer="clip: *;" id="gate2" shadow="" static-body="" scale="1.5 1.5 1.5" gltf-model="" velocity="" position="0.2 -1.6 1.8"></a-gltf-model>
 
   </a-scene>
 
