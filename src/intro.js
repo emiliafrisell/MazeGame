@@ -85,9 +85,9 @@ const URL = "./";
                 }, 7000)
                 
                 webcam.stop();
-            const classPrediction =
-                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
+            // const classPrediction =
+            //     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            // labelContainer.childNodes[i].innerHTML = classPrediction;
 
             // document.getElementById('boxes').setAttribute('position', '-5 0 -1.5');
 
