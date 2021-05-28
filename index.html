@@ -16,6 +16,7 @@
 
       let coffee = false;
       let beenToGate = false;
+      let pickedUpBoxes = false;
 
       let text, attr_text;
 
@@ -69,7 +70,8 @@
                 // removeControl(); 
                 document.getElementById('speech').setAttribute('scale', '0.7 0.2 0.1');
                 speak('Maybe I\'ll feel more like helping you if you bring me a cup of coffee. \n\n OK')
-
+            } else if (pickedUpBoxes) {
+                  speak('What are you waiting for? Go on, get in there')
             } else if (beenToGate && coffee) {
                 speak('What are you waiting for? Pick up the crates')
             } else {
@@ -83,10 +85,13 @@
             }
 
             if (id === 'boxes' && coffee === true) {
+              pickedUpBoxes = true;
               document.getElementById('boxes').setAttribute('visible', 'false');
               speak('Thank you, the gates are now open. Don\'t forget my crates in there')
               openGates();
             }
+
+
             
           });
           this.el.addEventListener('click', function(e) {
