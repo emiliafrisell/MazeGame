@@ -11,23 +11,25 @@
 }
 
 #start {
+  width: 500px;
+  height: 260px;
+  font-family: "Courier New";
+  color: rgba(70, 50, 26, 0.8);
+  padding-top: 60px;
+
   position: absolute;
+  top: calc(50% - 200px);
+  left: calc(50% - 250px);
+  transform: rotate(-2deg);
 
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  top: 20%;
-  left: 25%;
-  border-radius: 0px;
-  width: 500px;
-  height: 260px;
+
   background-image: url("/assets/postcard.webp");
   background-size: contain;
-  font-family: "Courier New";
-  padding-top: 60px;
-  color: rgba(70, 50, 26, 0.8);
 
-  transform: rotate(-2deg);
+  border-radius: 0px;
 }
 
 #title {
@@ -46,7 +48,6 @@
 }
 
 #description {
-  background-color: green;
   padding-right: 35px;
   width: 38%;
 }

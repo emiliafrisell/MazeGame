@@ -395,35 +395,3 @@
         }
       }
     }
-
-    let addDoor = () => {
-      // Set final portal position
-      var free1=maze_height-1,free2=maze_width-1;
-      while(maze[free1][free2] != 1){
-        free1--;
-        if(free1 <= 0){
-          free1 = maze_height-1;
-          free2--;
-          
-        }
-        console.log(free1)
-      }
-
-      // door
-      var box_price = document.createElement("a-box");
-          box_price.setAttribute('static-body','');
-          box_price.setAttribute('look-at','#camera');
-          box_price.setAttribute('src','#door');
-          box_price.setAttribute('id','price');
-          box_price.setAttribute('height',2);
-          box_price.setAttribute('width',1);
-          box_price.setAttribute('depth',1);
-          box_price.setAttribute('rotation','0 45 0');
-          box_price.setAttribute('position',(3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)));
-
-          scene.appendChild(box_price);
-
-
-          console.log('door was added at ' + (3*(free2-(maze_width-1)*.5))+' 1 '+(3*(free1-(maze_height-1)*.5)))
-
-    }

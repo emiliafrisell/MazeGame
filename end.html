@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>MazeGame</title>
+    <title>Level 4 - Pleasantville -</title>
     <meta name="description" content="level 4 of exploring code module game">
 
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
@@ -20,7 +20,7 @@
         init: function() {
           this.el.addEventListener('collide', function(e) {
             let id = e.detail.body.el.getAttribute('id');
-            console.log(id)
+
             // console.log('Player has collided with ', e.detail.body.el);
             // e.detail.target.el; // Original entity (playerEl).
             // e.detail.body.el; // Other entity, which playerEl touched.
@@ -54,6 +54,13 @@
         }
       })
 
+        this.el.addEventListener('drag-drop', function(evt) {
+          evt.detail.dropped.setAttribute('material', 'color',
+            '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+           // notify super-hands that the gesture was accepted
+          evt.preventDefault()
+        })
+    
     </script>
 </head>
 <body>
@@ -80,7 +87,7 @@
   <div id='start' class="info-box">
 
     <div id="title">
-      <img src="assets/stamp.jpg" />
+      <img src="assets/stamp3.jpg" />
       <h1>Level 4</h1>
       <h3>The Maze</h3>
     </div>
@@ -95,7 +102,7 @@
   </div>
 
   <!-- ="debug: true" -->
-  <a-scene physics="debug: true" fog="type: linear; color: #AAB; near: 0; far:14;">
+  <a-scene physics fog="type: linear; color: #AAB; near: 0; far:14;">
     <a-sky color="#007FF0"></a-sky>
     <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="40" height="40" material="src:#asset_ground; repeat: 4 4"></a-plane>
 
@@ -105,24 +112,33 @@
         <img src="assets/corn.jpg" id="asset_wall">
         <img src="assets/exit3.png" id="asset_entrance">
         <img src="assets/grass.jpg" id="asset_ground">
+        <img src="assets/crate.jpg" id="asset_crate">
+
         <a-asset-item src="assets/house2.glb" id="asset_house"></a-asset-item>
     </a-assets>
     
     <!-- Camera Entity -->
     <a-entity id="camera" position="0 1.6 0" rotation="0 0 0">
-      <a-entity id="camera" camera look-controls="pointerLockEnabled: true" wasd-controls kinematic-body foo>
+      <!-- ="pointerLockEnabled: true" -->
+      <a-entity id="camera" camera look-controls wasd-controls kinematic-body foo>
         <!-- <a-entity text="value: Time;" material="color:red" position="0 0.3 0" id="board"></a-entity> -->
         <a-entity text="value: ; align: center;"  material="color:black" position="-0.6 0 -1" id="red"></a-entity>
         <a-entity cursor="fuse: true; fuseTimeout: 500"
                   position="0 0 -1"
                   geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
-                  material="color:#20639B; shader: flat">
+                  material="color:#20639B; shader: flat"
+                  super-hands>
                 </a-entity>
       </a-entity>
     </a-entity>
 
     <!-- <a-cylinder position="1 0.75 -3" radius="0.5" height="0.05" color="#FFC65D" shadow rotation="90 0 0" animation="property: rotation; dur: 5000; dir: alternate; loop: true; easing: linear; to:  0  0 360;"></a-cylinder> -->
 
+      <a-box dynamic-body position="0 0.75 -3" grabbable rotation="0 10 0" width="0.5" height="0.75" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
+      <a-box dynamic-body position="0 1.25 -3" grabbable width="0.5" height="0.75" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
+      <a-box dynamic-body position="0 1.75 -3" grabbable rotation="0 20 0" width="0.5" height="0.75" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
+      <a-box dynamic-body position="0 0.25 -3" grabbable width="0.5" height="0.75" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
+      <a-box dynamic-body position="0 2.25 -3" grabbable rotation="0 10 0" width="0.5" height="0.75" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
 
     <a-gltf-model
         static-body
@@ -227,7 +243,6 @@
       src="assets/tree.glb"
       position="0 0.7 4"
       animation-mixer="clip: *;"
-      shadow
       static-body
       id="tree"
       scale="2 2 2"
@@ -237,7 +252,6 @@
       position="-3 0.5 0"
       animation-mixer="clip: *;"
       static-body
-      shadow
       id="tree"
       scale="3 3 3"
     ></a-gltf-model>
@@ -246,7 +260,6 @@
       position="5 0.7 -1"
       animation-mixer="clip: *;"
       id="tree"
-      shadow
       static-body
       scale="1 1 1" 
     ></a-gltf-model>

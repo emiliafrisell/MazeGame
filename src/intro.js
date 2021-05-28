@@ -1,5 +1,3 @@
-console.log('intro')
-
 
 const hideInstructions = () => {
     document.querySelector('#start').style = 'display: none;'
@@ -17,9 +15,7 @@ const URL = "./";
 
     // Load the image model and setup the webcam
 
-    console.log('enter')
-
-    document.querySelector('#start-camera').addEventListener('click', init)
+    // document.querySelector('#start-camera').addEventListener('click', init)
 
     async function init() {
 
@@ -60,26 +56,38 @@ const URL = "./";
 
     // run the webcam image through the image model
     async function predict() {
+
+        let gate1 = document.getElementById('gate1');
+        let gate2 = document.getElementById('gate2')
+
         // predict can take in an image, video or canvas html element
         const prediction = await model.predict(webcam.canvas);
         for (let i = 0; i < maxPredictions; i++) {
-            if (prediction[i].probability.toFixed(2) > 0.5 && prediction[i].className == 'Coffee') {
+            if (prediction[i].probability.toFixed(2) > 0.8 && prediction[i].className == 'Coffee') {
                 coffee = true;
-                document.getElementById('gate1').setAttribute('rotation', '0 90 0')
-                document.getElementById('gate1').setAttribute('position', '5.2 -1.6 -7')
-                document.getElementById('gate2').setAttribute('rotation', '0 -100 0')
-                document.getElementById('gate2').setAttribute('position', '4.9 -1.6 -9.7')
+                gate1.setAttribute('rotation', '0 90 0')
+                gate1.setAttribute('position', '5.2 -1.6 -7')
+                gate2.setAttribute('rotation', '0 -100 0')
+                gate2.setAttribute('position', '4.9 -1.6 -9.7')
+                
+                document.getElementById('boxes').setAttribute('visible', 'true');
 
-                document.getElementById('instructions2').style = 'display: none;'
-                document.getElementById('camera-container').style = 'display: none;'
-
-                document.getElementById('text').innerHTML = 'Thank you, I have now opened the gates for you'
-                document.querySelector('#instructions').style = 'display: block;';
-
+                setTimeout(() => {  
+                    speak('Thank you, I have now opened the gates for you.')
+                    document.getElementById('camera-container').style = 'display: none;'
+                }, 500)
+                
+                setTimeout(() => {  
+                    document.getElementById('speech-bubble').setAttribute('visible', 'false');
+                }, 5000)
+                
                 webcam.stop();
-            // const classPrediction =
-            //     prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-            // labelContainer.childNodes[i].innerHTML = classPrediction;
+            const classPrediction =
+                prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            labelContainer.childNodes[i].innerHTML = classPrediction;
+
+            // document.getElementById('boxes').setAttribute('position', '-5 0 -1.5');
+
             // character = document.createElement("a-box");
             // character.setAttribute('static-body','');
       

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>MazeGame</title>
+    <title>Level 4 - Pleasantville -</title>
     <meta name="description" content="MazeGame - Fun Trivia Maze Game built on A-frame & Three.js">
 
     <!--Libraries & external scripts Import-->
@@ -38,10 +38,7 @@
       <div id="description">
         <p>I finally made it into the maze. The old man told me that 
           I have to find his boxes before he will let me out again, though. 
-          There should be atleast four..</p>
-         
-        <!-- You are on your way to the Medium. But in order to get there you need 
-          to go through Pleasantville's Enchanting Corn Maze.. -->
+          There should be at least four..</p>
   
         <button type="button" id="start-button">Ok</button>
       </div>
@@ -62,6 +59,8 @@
         <!-- <img src="assets/instruction.jpg" id="asset_instruction"> -->
         <img src="assets/reload.png" id="asset_reload">
         <img src="assets/thought.png" id="asset_thought">
+        <img src="assets/crate.jpg" id="asset_crate">
+
 
         <a-asset-item src="assets/tree.glb" id="asset_character"></a-asset-item>
       </a-assets>
@@ -102,7 +101,7 @@
                   <a-image src="#asset_thought"  width="2" height="7" id='thought' scale="0.7 0.2 0.2"></a-image>
                   <a-entity id="thought-text" scale="0.7 0.7 0.7" material="color:black;" 
                             visible="" position="-0.4 0.3 0.1" width="0.4" height='0.4'
-                            text="text: Ok, I got into the maze. Now I just need to find the boxes before getting out of here..; align:center; anchor:center; size:0.05; height:0.001;"></a-entity>                
+                            text="text: Ok, I got into the maze. \n Now I just need to find the boxes \n before getting out of here..; align:center; anchor:center; size:0.05; height:0.001;"></a-entity>                
                 </a-entity>
       </a-entity>               
               
@@ -164,7 +163,7 @@
           }
         }
 
-        if (found.length > 2) {
+        if (found.length === 2) {
           addDoor();
         }
       }
