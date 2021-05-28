@@ -15,7 +15,7 @@
     <script>
 
       let coffee = false;
-      let beenToGate = true;
+      let beenToGate = false;
 
       let text, attr_text;
 
@@ -29,12 +29,16 @@
         document.getElementById('speech-bubble').setAttribute('visible', 'true');
       }
 
+      let removeControl = () => {
+        document.getElementById('camera').setAttribute('look-controls', '');
+      }
+
       AFRAME.registerComponent('foo', {
         init: function() {
           this.el.addEventListener('collide', function(e) {
 
             let id = e.detail.body.el.getAttribute('id');
-            // console.log(id)
+            console.log(id)
 
 
             if (id == 'gate1' || id == 'gate2') {
@@ -60,17 +64,28 @@
 
             if (id === 'bench') {
 
-              if (beenToGate) {
+              if (beenToGate && !coffee) {
+
+                // removeControl(); 
+                document.getElementById('speech').setAttribute('scale', '0.7 0.2 0.1');
                 speak('Maybe I\'ll feel more like helping you if you bring me a cup of coffee. \n\n OK')
-               
+
+            } else if (beenToGate && coffee) {
+                speak('What are you waiting for? Pick up the crates')
             } else {
-                speak('Good morning to you, what a loveley day')
+                speak('What are you doing here? Don\'t bother me')
                 
                 setTimeout(() => {  
                   document.getElementById('speech-bubble').setAttribute('visible', 'false');
                 }, 2000)
 
               }
+            }
+
+            if (id === 'boxes' && coffee === true) {
+              document.getElementById('boxes').setAttribute('visible', 'false');
+              speak('Thank you, the gates are now open. Don\'t forget my crates in there')
+              openGates();
             }
             
           });
@@ -142,10 +157,10 @@
     </a-assets>
     
 
-
+    <!-- ="pointerLockEnabled: true" -->
     <!-- Camera Entity -->
     <a-entity id="camera" position="0 1.6 0" rotation="0 0 0">
-      <a-entity id="camera" camera look-controls="pointerLockEnabled: true" wasd-controls kinematic-body foo>
+      <a-entity id="camera" camera look-controls wasd-controls kinematic-body foo>
         <a-entity text="value: ; align:center; size:.07; height:0.001" material="color:blue" position="-0.6 0 -1" id="red"></a-entity>
         <a-entity position="1 0.5 -1.7" visible="false" id="thought-bubble">
           <a-image static-body src="#asset_thought"  width="2" height="7" id='thought' scale="0.7 0.2 0.2"></a-image>
@@ -192,7 +207,7 @@
     <a-image  static-body src="#asset_entrance" position="5 0.3 -8.7" width="2" height="7" id='entrance'></a-image>
     <a-box static-body position="0 0 -9" width="45" height="4" depth="0.5" material="src:#asset_wall; repeat: 21 2"></a-box>
 
-    <a-entity position="-5 0 -1.5" id="boxes" visible="false">
+    <a-entity static-body position="-5 0 -1.5" id="boxes" visible="false">
 
     <!-- <a-box dynamic-body position="0 1 -2" color="#4CC3D9" width="1" height="1" depth="1"></a-box> -->
       <a-box static-body position="0 0.75 0" rotation="0 10 0" color="orange" width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>

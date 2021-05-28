@@ -36,9 +36,8 @@
         <h3>The Maze</h3>
       </div>
       <div id="description">
-        <p>I finally made it into the maze. The old man told me that 
-          I have to find his boxes before he will let me out again, though. 
-          There should be at least four..</p>
+        <p>I finally made it into the maze. But what happened to the crates? I better find them again.
+          There were at least four..</p>
   
         <button type="button" id="start-button">Ok</button>
       </div>
@@ -159,11 +158,15 @@
           progress.setAttribute('text', attr_text);
 
           if(found.length == 1) {
-            think('Yes! I found the first box!')
+            think('Yes! I found the first box! Only a few more')
+          }
+
+          if(found.length == 4) {
+            think('Alright, I just want to get out of here')
           }
         }
 
-        if (found.length === 2) {
+        if (found.length === 4) {
           addDoor();
         }
       }
@@ -229,7 +232,10 @@
           board.setAttribute('text',attr_text);
 
           if (seconds === 60) {
-              think('will i ever get out?')
+              think('Where am I?')
+            }
+          if (seconds === 120) {
+              think('Will I ever get out?')
             }
         },1000);
       }
