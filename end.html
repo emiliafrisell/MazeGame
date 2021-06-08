@@ -16,46 +16,40 @@
 
 
         <!-- CSS -->
-    <link rel="stylesheet" href="src/style.css">
-    <!-- <script src="src/game.js"></script> -->
+        <link rel="stylesheet" href="src/style.css">
 
-
-    <script>
-        
-        AFRAME.registerComponent('.tape', {
-            play: function () {
-            this.el.addEventListener('collide', function(e) {
-                console.log("Dropped")
-            });
-            }
-        }); 
-
-        AFRAME.registerComponent('foo', {
-          init: function() {
-            
-            let current = this.el
-
-            this.el.addEventListener('collide', function(e) {
-              let id = e.detail.body.el.getAttribute('id');
-  
-              if (current.id !== 'key' && id === 'bench') {
-                boxDelivered(current.id)
+        <script>
+          AFRAME.registerComponent('.tape', {
+              play: function () {
+              this.el.addEventListener('collide', function(e) {
+                  console.log("Dropped")
+              });
               }
+          }); 
+
+          AFRAME.registerComponent('foo', {
+            init: function() {
               
-              if (current.id === 'key' && id === 'key-hole') {
-                alert('you\'re now going to the Medium')
-              }
+              let current = this.el
 
-            });
-          }
-        })
-      </script>
-    </head>
+              this.el.addEventListener('collide', function(e) {
+                let id = e.detail.body.el.getAttribute('id');
     
-    <body>
+                if (current.id !== 'key' && id === 'bench') {
+                  boxDelivered(current.id)
+                }
+                
+                if (current.id === 'key' && id === 'key-hole') {
+                  document.querySelector('#end-message').style = 'display: flex;'
+                }
 
-
-
+              });
+            }
+          })
+      </script>
+  </head>
+    
+  <body>
   <div id='start' class="info-box">
 
     <div id="title">
@@ -63,15 +57,38 @@
       <h1>Level 4</h1>
       <h3>The Maze</h3>
     </div>
+
     <div id="description">
       <p>I finally made it out of the maze. Now i just need to give 
         the old man his boxes before I can go to the Medium</p>
 
       <button type="button" id="start-button">Ok</button>
     </div>
+
   </div>
+
+  <div id='end-message' class="info-box">
+
+    <div id="title">
+      <img src="assets/stamp3.jpg" />
+      <h1>Level 4</h1>
+      <h3>The Maze</h3>
+      <h3 id="finished">Completed</h3>
+    </div>
+
+    <div id="description">
+      <p>
+        <br><br>
+        Alex, I'm coming for you. The Medium will bring me answers..</p>
+
+        <button type="button" onclick="window.parent.postMessage('nextLevel')">
+         Go to Medium
+      </button>
+    </div>
+  </div>
+  
   <!-- fog="type: linear; color: #AAB; near: 0; far:14;"  -->
-    <a-scene physics id='end-scene'>
+    <a-scene physics id='end-scene'  renderer="physicallyCorrectLights: true;" >
 
         <a-sky src="#asset_sky"></a-sky>
         <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="40" height="40" material="src:#asset_ground; repeat: 4 4; opacity: 0"></a-plane>
