@@ -38,16 +38,17 @@
             this.el.addEventListener('collide', function(e) {
               let id = e.detail.body.el.getAttribute('id');
   
-              if (id === 'bench') {
-                console.log(current.id)
+              if (current.id !== 'key' && id === 'bench') {
                 boxDelivered(current.id)
               }
               
+              if (current.id === 'key' && id === 'key-hole') {
+                alert('you\'re now going to the Medium')
+              }
+
             });
           }
         })
-  
-      
       </script>
     </head>
     
@@ -63,18 +64,17 @@
       <h3>The Maze</h3>
     </div>
     <div id="description">
-      <p>I finally made it out of the maze. Now i just need to give the old man his boxes before I can go to the Medium</p>
-       
-      <!-- You are on your way to the Medium. But in order to get there you need 
-        to go through Pleasantville's Enchanting Corn Maze.. -->
+      <p>I finally made it out of the maze. Now i just need to give 
+        the old man his boxes before I can go to the Medium</p>
 
       <button type="button" id="start-button">Ok</button>
     </div>
   </div>
-    <a-scene physics fog="type: linear; color: #AAB; near: 0; far:14;" id='end-scene'>
+  <!-- fog="type: linear; color: #AAB; near: 0; far:14;"  -->
+    <a-scene physics id='end-scene'>
 
-        <a-sky color="#007FF0"></a-sky>
-        <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="40" height="40" material="src:#asset_ground; repeat: 4 4"></a-plane>
+        <a-sky src="#asset_sky"></a-sky>
+        <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="40" height="40" material="src:#asset_ground; repeat: 4 4; opacity: 0"></a-plane>
 
         <a-assets>
             <img src="assets/door.png" id="door">
@@ -83,8 +83,10 @@
             <img src="assets/grass.jpg" id="asset_ground">
             <img src="assets/crate.jpg" id="asset_crate">
             <img src="assets/speech.png" id="asset_speech">
-
-    
+            <img src="assets/sunrise-field.jpg" id="asset_sky">
+            
+            <a-asset-item src="assets/key.glb" id="asset_key">
+            <a-asset-item src="assets/key-hole.glb" id="asset_key-hole">
             <a-asset-item src="assets/house2.glb" id="asset_house"></a-asset-item>
         </a-assets>
 
@@ -93,19 +95,22 @@
   
       <!-- super hands controls -->
       <a-entity 
-        progressive-controls="objects: .tape, #bench"
+        progressive-controls="objects: .tape, #bench, a-gltf-model"
         position="0 1.6 0"
+        kinematic-body
+        foo
         >
         <a-entity 
             look-controls
             wasd-controls
-            kinematic-body
             >
         </a-entity>
       </a-entity>
 
-<!-- HOUSE -->
-<a-gltf-model
+  <!-- HOUSE -->
+      <a-gltf-model src="#asset_key-hole" animation-mixer="clip: *;" static-body="" 
+        id="key-hole" rotation="" visible="false" gltf-model="" scale="0.2 0.2 0.2" position="3  1 -12.5"></a-gltf-model>
+      <a-gltf-model
         static-body
         src="assets/house2.glb"
         position="-3  0.7 -25"
@@ -113,6 +118,8 @@
         animation-mixer="clip: *;"
         scale="0.014 0.014 0.014"
         shadow
+        id="green-box"
+
       ></a-gltf-model>
 
       <!-- MAN -->
@@ -123,8 +130,10 @@
       <a-image position="0 0 0" src="#asset_speech"  width="2" height="7" id='speech' scale="0.6 0.1 0.1"></a-image>
       <a-entity position="0 0.1 0.1" id="speech-text" text="value: Good Luck Getting Out; align:center; width:1; height: 2; wrapCount: 15; color: black;" scale="1 1 1" material="color:black;"  rotation="0 -10 0"></a-entity>
     </a-entity>
+    <!-- <a-gltf-model src="#asset_key" animation-mixer="clip: *;" static-body="" 
+      id="key" rotation="" visible="" gltf-model="" scale="0.2 0.2 0.2" position="-5 0.1 -11.7"></a-gltf-model> -->
 
-    <a-box static-body position="0 0 1" width="45" height="4" depth="0.5" material="src:#asset_wall; repeat: 21 2"></a-box>
+    <!-- <a-box static-body position="0 0 1" width="45" height="4" depth="0.5" material="src:#asset_wall; repeat: 21 2"></a-box> -->
 
     <!-- CORN STALKS -->
     <a-gltf-model
