@@ -20,14 +20,11 @@ const getRandomNumbers = (w, h) => {
 }
 
 const addBox = (color) => {
-  console.log(width,height)
 
     let boxLocation = getRandomNumbers(width, height);
-    console.log(boxLocation)
 
     let box = document.createElement("a-box");
     box.setAttribute('static-body','');
-    // box.setAttribute('color', color);
     box.setAttribute('id', color);
     box.setAttribute('height', 1);
     box.setAttribute('width', 1);

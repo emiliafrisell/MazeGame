@@ -4,10 +4,6 @@ const hideInstructions = () => {
 }
 
 document.querySelector('#start-button').addEventListener('click', hideInstructions)
-// document.querySelector('#ok-button').addEventListener('click', () => {
-//     document.querySelector('#instructions').style = 'display: none;'
-
-// })
 
 const openGates = () => {
     gate1.setAttribute('rotation', '0 90 0')
@@ -16,7 +12,7 @@ const openGates = () => {
     gate2.setAttribute('position', '4.9 -1.6 -9.7')
 }
 
-const URL = "./";
+    const URL = "./";
 
     let model, webcam, labelContainer, maxPredictions;
 
