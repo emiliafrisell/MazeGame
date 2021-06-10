@@ -35,17 +35,20 @@ const addFoundBoxes = () => {
     }
 }
 
-createKey = () => {
-
+const addKey = () => {
+    
     let key = document.createElement('a-gltf-model')
-
+    
     key.setAttribute('foo', '')
     key.setAttribute('id', 'key')
     key.setAttribute('src', '#asset_key')
     key.setAttribute('class', 'tape')
     key.setAttribute('position', '-5 10 -11.7')
-    key.setAttribute('rotation', ' 180 0 0')
+    key.setAttribute('rotation', '0 180 0')
     key.setAttribute('scale', '0.3 0.3 0.3')
+    key.setAttribute('height', 4)
+    key.setAttribute('width', 0.5)
+    key.setAttribute('depth', 0.5)
     key.setAttribute('dynamic-body', '')
     key.setAttribute('hoverable', '')
     key.setAttribute('grabbable', '')
@@ -53,16 +56,11 @@ createKey = () => {
     key.setAttribute('draggable', '')
     key.setAttribute('event-set__hoveron', '_event: hover-start; material.opacity: 0.7; transparent: true')
     key.setAttribute('event-set__hoveroff', '_event: hover-end; material.opacity: 1; transparent: false')
-
+    
     endScene.appendChild(key)
-}
-const addKey = () => {
-
-    createKey();
 
     let keyHole = document.getElementById('key-hole')
     keyHole.setAttribute('visible', 'true')
-    keyHole.setAttribute('animation', 'property: rotation; to: 0 360 0; dur: 2000; loop: true; easing: linear')
 }
 
 const boxDelivered = (nr) => {
