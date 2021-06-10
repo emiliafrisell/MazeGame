@@ -1,26 +1,29 @@
-# Escape from Hyper Island - World 5 - Pleasantville - Level 4 - The Maze
+# Escape from Hyper Island
+
+## World 5 - Pleasantville - Level 4 - The Maze
 
 ---
 
-Hyper Island - The First App module - Brief 9.
+Hyper Island - Exploring Code Module - May 2021
 
-### :scroll: Brief:
+### Brief:
 
-Create an accessible Pomodoro timer that counts down from 25 minutes and that you can reset after it is done using a framework. Extra challanges are to make a nice design, make it possible to change the time, add break time, add tasks, connect to an API like trello or make it as a PWA.
+As a team of 6, create a game with each person making an individual level with three challenges. Come up with a 'world concept' together as a team, but each person can choose what tech stack they want to work with and what their challenges should be.
 
-### :hourglass: Time spent:
+### Brief Length:
 
-3 days.
+4 weeks
 
-### :checkered_flag: Goals:
+### Goals:
 
+Our team wanted to create a cohesive experience and story where each level builds on the story of the previous one. My level is the fourth out of six and is focused around getting through a corn maze.
 Meet the briefs minimal requirements and don't get carried away and ambitious. I wanted to focus on building my portfolio instead since I think I'm gonna need that one more than this timer app.
 
-### :heavy_check_mark: Solution:
+### Solution:
 
 I decided to create a very basic pomodoro timer. I wanted it to loop some music while the timer is on since I find it easier to focus with classical or instrumental music, and then stop the music when the timer stops.
 
-### :closed_book: Learnings:
+### Learnings:
 
 - Working with the Date object in JavaScript which I have never done before
 - Time is valuable, and I can decide how to use my time more efficiently
@@ -29,7 +32,7 @@ I decided to create a very basic pomodoro timer. I wanted it to loop some music 
 - More understanding of the useEffect hook
 - I need to get better at taking breaks before getting frustrated and hitting the 'I'm the most stupid person ever'-mode
 
-### :computer: Tech used in this specific repository:
+### Tech used in this specific repository:
 
 - React
 - [useSound](https://github.com/joshwcomeau/use-sound)
