@@ -1,99 +1,93 @@
 <html>
     <head>
 
-        <meta charset="utf-8">
-        <title>Level 4 - Pleasantville -</title>
-        <meta name="description" content="level 4 of exploring code module game">
+      <meta charset="utf-8">
+      <title>Level 4 - Pleasantville -</title>
+      <meta name="description" content="level 4 of exploring code module game">
 
-        <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-        <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
-        <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.12.4/dist/aframe-extras.min.js"></script>
-        <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
-        <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+      <!--Libraries & external scripts Import-->
+      <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+      <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+      <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.12.4/dist/aframe-extras.min.js"></script>
+      <script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+      <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="src/style.css">
+      <!-- CSS -->
+      <link rel="stylesheet" href="src/style.css">
 
-        <script>
-          AFRAME.registerComponent('.tape', {
-              play: function () {
-              this.el.addEventListener('collide', function(e) {
-                  console.log("Dropped")
-              });
+      <script>
+
+        AFRAME.registerComponent('foo', {
+          init: function() {
+            
+            let current = this.el
+
+            this.el.addEventListener('collide', function(e) {
+              let id = e.detail.body.el.getAttribute('id');
+
+              if (current.id !== 'key' && id === 'bench') {
+                boxDelivered(current.id)
               }
-          }); 
-
-          AFRAME.registerComponent('foo', {
-            init: function() {
               
-              let current = this.el
+              if (current.id === 'key' && id === 'key-hole') {
+                endScene.removeChild(document.getElementById('key'))
 
-              this.el.addEventListener('collide', function(e) {
-                let id = e.detail.body.el.getAttribute('id');
-    
-                if (current.id !== 'key' && id === 'bench') {
-                  boxDelivered(current.id)
-                }
-                
-                if (current.id === 'key' && id === 'key-hole') {
-                  endScene.removeChild(document.getElementById('key'))
-
-                  document.querySelector('#end-message').style = 'display: flex;'
-                }
-
-              });
-            }
-          })
+                document.querySelector('#end-message').style = 'display: flex;'
+              }
+            });
+          }
+        })
       </script>
-  </head>
+    </head>
     
-  <body>
-  <div id='start' class="info-box">
+    <body>
+      <div id='start' class="info-box">
 
-    <div id="title">
-      <img src="assets/stamp3.jpg" />
-      <h1>Level 4</h1>
-      <h3>The Maze</h3>
-    </div>
+        <div class="title">
+          <img src="assets/stamp3.jpg" />
+          <h1>Level 4</h1>
+          <h3>The Maze</h3>
+        </div>
 
-    <div id="description">
-      <p>I finally made it out of the maze. Now i just need to give 
-        the old man his boxes before I can go to the Medium</p>
+        <div id="description">
+          <p>I finally made it out of the maze. Now i just need to give 
+            the old man his boxes before I can go to the Medium</p>
 
-      <button type="button" id="start-button">Ok</button>
-    </div>
+          <button type="button" id="start-button">Ok</button>
+        </div>
 
-  </div>
+      </div>
 
-  <div id='end-message' class="info-box">
+      <div id='end-message' class="info-box">
 
-    <div id="title">
-      <img src="assets/stamp3.jpg" />
-      <h1>Level 4</h1>
-      <h3>The Maze</h3>
-      <h3 id="finished">Completed</h3>
-    </div>
+        <div class="title">
+          <img src="assets/stamp3.jpg" />
+          <h1>Level 4</h1>
+          <h3>The Maze</h3>
+          <h3 id="finished">Completed</h3>
+        </div>
 
-    <div id="description">
-      <p>
-        <br><br>
-        Alex, I'm coming for you. The Medium will bring me answers..</p>
+        <div id="description">
+          <p>
+            <br><br>
+            Alex, I'm coming for you. The Medium will bring me answers..
+          </p>
 
-        <button type="button" onclick="window.parent.postMessage('nextLevel')">
-         Go to Medium
-      </button>
-    </div>
-  </div>
+          <button type="button" onclick="window.parent.postMessage('nextLevel')">
+            Go to Medium
+          </button>
+        </div>
+      </div>
 
-  <div id='skip' class="info-box">
-    <p id="text">Too hard? Skip to the next section..</p>
-    <button type="button" id="skip-button" onclick="
-      document.querySelector('#end-message').style = 'display: flex;';
-      document.getElementById('skip').style = 'display: none;'; ">
-      Next -></button>
- </div>
+      <div id='skip' class="info-box">
+        <p id="text">Too hard? Skip to the next section..</p>
+        <button type="button" id="skip-button" onclick="
+          document.querySelector('#end-message').style = 'display: flex;';
+          document.getElementById('skip').style = 'display: none;'; ">
+          Next -></button>
+      </div>
 
-    <a-scene physics id='end-scene' renderer="physicallyCorrectLights: true;">
+      <a-scene physics id='end-scene' renderer="physicallyCorrectLights: true;">
         <a-sky src="#asset_sky"></a-sky>
         <a-plane static-body rotation="-90 0 0" position="0 0 0" width="200" height="200" material="src:#asset_ground; repeat: 14 14; opacity: 1;" color="orange"></a-plane>
 
@@ -114,172 +108,162 @@
         <a-entity sound="src: url(assets/audio/backgroundnoise.mp3); autoplay: true; loop:true; distanceModel:linear">
         </a-entity>
   
-      <!-- super hands controls -->
-      <a-entity 
-        progressive-controls="objects: .tape, #bench, a-gltf-model"
-        position="0 1.6 0"
-        kinematic-body
-        foo
-        >
+        <!-- super hands controls -->
         <a-entity 
-        camera
+          progressive-controls="objects: .tape, #bench, a-gltf-model"
+          position="0 1.6 0"
+          kinematic-body
+          foo>
+          <a-entity 
+            camera
             look-controls="pointerLockEnabled: true"
-            wasd-controls
-            >
+            wasd-controls>
+          </a-entity>
         </a-entity>
-      </a-entity>
 
-  <!-- HOUSE -->
-      <a-gltf-model src="#asset_key-hole" animation-mixer="clip: *;" static-body="" 
-        id="key-hole" rotation="" visible="false" gltf-model="" scale="0.2 0.2 0.2" position="3  1 -12.5"></a-gltf-model>
-      <a-gltf-model
-        static-body
-        src="assets/house2.glb"
-        position="-3  0.7 -25"
-        rotation=' 0 0 0'
-        animation-mixer="clip: *;"
-        scale="0.014 0.014 0.014"
-        shadow
-        id="green-box"
-
-      ></a-gltf-model>
-
-      <!-- MAN -->
-    <a-entity position="-5 0.1 -10" static-body="" id="bench">
-      <a-gltf-model src="assets/man.glb" velocity="" animation-mixer="clip: *;" scale="0.5 0.5 0.5" shadow="" visible="" gltf-model=""  rotation="0 80 0" id="bench"></a-gltf-model>
-    </a-entity>
-    <a-entity position="-5 2.1 -11.7" visible="false" id="speech-bubble">
-      <a-image position="0 0 0" src="#asset_speech"  width="2" height="7" id='speech' scale="0.6 0.1 0.1"></a-image>
-      <a-entity position="0 0.1 0.1" id="speech-text" text="value: Good Luck Getting Out; align:center; width:1; height: 2; wrapCount: 15; color: black;" scale="1 1 1" material="color:black;"  rotation="0 -10 0"></a-entity>
-    </a-entity>
-    <!-- <a-gltf-model src="#asset_key" animation-mixer="clip: *;" static-body="" 
-      id="key" rotation="" visible="" gltf-model="" scale="0.2 0.2 0.2" position="-5 0.1 -11.7"></a-gltf-model> -->
-
-    <a-image static-body position="0 0 1" width="200" height="6" material="src:#asset_wall; repeat: 60 2"></a-image>
-
-    <!-- CORN STALKS -->
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="-3 0 -2.5"
-        rotation=' 0 90 0'
-        animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
-    ></a-gltf-model>
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="-5.5 0 -2.5"
-        rotation=' 0 90 0'
-        animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
-    ></a-gltf-model>
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="4 0 -2.5"
-        rotation=' 0 90 0'
-        animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
-    ></a-gltf-model>
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="-1.5  0 -2.5"
-        rotation=' 0 90 0'
-        animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
-    ></a-gltf-model>
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="7 0 -2.5"
-        rotation=' 0 90 0'
-        animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
-    ></a-gltf-model>
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="-3 0 -0.5"
-        rotation=' 0 90 0'
-        animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
-        static-body
-        id='man'
-    ></a-gltf-model>
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="-5.5 0 -0.5"
-        rotation=' 0 90 0'
-        animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
-    ></a-gltf-model>
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="4 0 -0.5"
-        rotation=' 0 90 0'
-        animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
-    ></a-gltf-model>
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="-1.5 0 -0.5"
-        rotation=' 0 90 0'
-        animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
+        <!-- HOUSE -->
+        <a-gltf-model src="#asset_key-hole" animation-mixer="clip: *;" static-body="" 
+          id="key-hole" rotation="" visible="false" gltf-model="" scale="0.2 0.2 0.2" position="3  1 -12.5"></a-gltf-model>
+        <a-gltf-model
+          static-body
+          src="assets/house2.glb"
+          position="-3  0.7 -25"
+          rotation=' 0 0 0'
+          animation-mixer="clip: *;"
+          scale="0.014 0.014 0.014"
+          shadow
+          id="green-box"
         ></a-gltf-model>
-    <a-gltf-model
-        src="assets/cornstalks.glb"
-        position="7 0 -0.5"
-        rotation=' 0 90 0'
+
+        <!-- MAN -->
+        <a-entity position="-5 0.1 -10" static-body="" id="bench">
+          <a-gltf-model src="assets/man.glb" velocity="" animation-mixer="clip: *;" scale="0.5 0.5 0.5" shadow="" visible="" gltf-model=""  rotation="0 80 0" id="bench"></a-gltf-model>
+        </a-entity>
+        <a-entity position="-5 2.1 -11.7" visible="false" id="speech-bubble">
+          <a-image position="0 0 0" src="#asset_speech"  width="2" height="7" id='speech' scale="0.6 0.1 0.1"></a-image>
+          <a-entity position="0 0.1 0.1" id="speech-text" text="value: Good Luck Getting Out; align:center; width:1; height: 2; wrapCount: 15; color: black;" scale="1 1 1" material="color:black;"  rotation="0 -10 0"></a-entity>
+        </a-entity>
+
+        <a-image static-body position="0 0 1" width="200" height="6" material="src:#asset_wall; repeat: 60 2"></a-image>
+
+        <!-- CORN STALKS -->
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="-3 0 -2.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+        ></a-gltf-model>
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="-5.5 0 -2.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+        ></a-gltf-model>
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="4 0 -2.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+        ></a-gltf-model>
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="-1.5  0 -2.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+        ></a-gltf-model>
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="7 0 -2.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+        ></a-gltf-model>
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="-3 0 -0.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+            static-body
+            id='man'
+        ></a-gltf-model>
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="-5.5 0 -0.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+        ></a-gltf-model>
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="4 0 -0.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+        ></a-gltf-model>
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="-1.5 0 -0.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+            ></a-gltf-model>
+        <a-gltf-model
+            src="assets/cornstalks.glb"
+            position="7 0 -0.5"
+            rotation=' 0 90 0'
+            animation-mixer="clip: *;"
+            scale="0.14 0.14 0.14"
+            shadow
+        ></a-gltf-model>
+
+        <!-- TREES -->
+        <a-gltf-model
+        src="assets/tree.glb"
+        position="0 0.7 4"
         animation-mixer="clip: *;"
-        scale="0.14 0.14 0.14"
-        shadow
-    ></a-gltf-model>
+        static-body
+        id="tree"
+        scale="2 2 2"
+        ></a-gltf-model>
+        <a-gltf-model
+        src="assets/tree.glb"
+        position="-3 0.5 0"
+        animation-mixer="clip: *;"
+        static-body
+        id="tree"
+        scale="3 3 3"
+        ></a-gltf-model>
+        <a-gltf-model
+        src="assets/tree.glb"
+        position="5 0.7 -1"
+        animation-mixer="clip: *;"
+        id="tree"
+        static-body
+        scale="1 1 1" 
+        ></a-gltf-model>
 
-    <!-- TREES -->
-    <a-gltf-model
-    src="assets/tree.glb"
-    position="0 0.7 4"
-    animation-mixer="clip: *;"
-    static-body
-    id="tree"
-    scale="2 2 2"
-    ></a-gltf-model>
-    <a-gltf-model
-    src="assets/tree.glb"
-    position="-3 0.5 0"
-    animation-mixer="clip: *;"
-    static-body
-    id="tree"
-    scale="3 3 3"
-    ></a-gltf-model>
-    <a-gltf-model
-    src="assets/tree.glb"
-    position="5 0.7 -1"
-    animation-mixer="clip: *;"
-    id="tree"
-    static-body
-    scale="1 1 1" 
-    ></a-gltf-model>
+        <!-- GATES -->
+        <a-gltf-model src="assets/gate.glb" animation-mixer="clip: *;" id="gate1" shadow="" static-body="" scale="1.5 1.5 1.5" gltf-model="" velocity="" rotation="0 10 0" position="-0.4 -1.6 1.95"></a-gltf-model>
+        <a-gltf-model src="assets/gate.glb" animation-mixer="clip: *;" id="gate2" shadow="" static-body="" scale="1.5 1.5 1.5" gltf-model="" velocity="" position="0.2 -1.6 1.8"></a-gltf-model>
 
+      </a-scene>
 
-    <!-- GATES -->
-    <a-gltf-model src="assets/gate.glb" animation-mixer="clip: *;" id="gate1" shadow="" static-body="" scale="1.5 1.5 1.5" gltf-model="" velocity="" rotation="0 10 0" position="-0.4 -1.6 1.95"></a-gltf-model>
-    <a-gltf-model src="assets/gate.glb" animation-mixer="clip: *;" id="gate2" shadow="" static-body="" scale="1.5 1.5 1.5" gltf-model="" velocity="" position="0.2 -1.6 1.8"></a-gltf-model>
+      <script src='src/end.js'></script>
+      <script src='src/intro.js'></script>
+    </body>
 
-    <!-- <a-gltf-model src="assets/man.glb" animation-mixer="clip: *;" scale="0.5 0.5 0.5" shadow="" static-body="" id="man" visible="" gltf-model="" position="-5 0.1 -10" rotation="0 80 0" velocity=""></a-gltf-model> -->
-
-    </a-scene>
-
-    <script src='src/end.js'></script>
-    <script src='src/intro.js'></script>
-
-
-  </body>
-    
   </html>

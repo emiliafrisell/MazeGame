@@ -35,17 +35,16 @@
   display: flex;
 }
 
-#end-message,
-.end {
+#end-message {
   display: none;
 }
 
-#title {
+.title {
   padding-top: 20px;
   width: 55%;
 }
 
-#title img {
+.title img {
   width: 65px;
   height: 85px;
   transform: rotate(3deg);
@@ -70,7 +69,6 @@
 #skip {
   display: none;
   height: 50px;
-  /* display: flex; */
   justify-content: flex-start;
   flex-direction: row;
   width: 97vw;
@@ -87,10 +85,6 @@
   padding-right: 20px;
   font-size: large;
 }
-/* #instructions2 {
-  display: none;
-  top: 25%;
-} */
 
 #finished {
   color: #ed2525;

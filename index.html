@@ -4,6 +4,7 @@
     <title>Level 4 - Pleasantville -</title>
     <meta name="description" content="level 4 of exploring code module game">
 
+    <!--Libraries & external scripts Import-->
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
@@ -24,9 +25,9 @@
         
         text = document.getElementById('speech-text');
         attr_text = text.getAttribute('text');
-
         attr_text.value = words;
         text.setAttribute('text', attr_text);
+
         document.getElementById('speech-bubble').setAttribute('visible', 'true');
       }
 
@@ -39,7 +40,8 @@
             if (id == 'gate1' || id == 'gate2') {
 
               if (coffee === true) {
-              window.location.href = 'maze.html';
+                // Go to next challenge
+                window.location.href = 'maze.html';
               } else {
                 beenToGate = true;
                 
@@ -60,25 +62,26 @@
 
               if (beenToGate && !coffee) {
                 document.getElementById('speech').setAttribute('scale', '0.7 0.2 0.1');
-                speak('Maybe I\'ll feel more like helping you if you bring me a cup of coffee. \n\n OK')
-            } else if (pickedUpBoxes) {
-                  speak('You\'re still here? Go on, get in there')
-            } else if (beenToGate && coffee) {
-                speak('What are you waiting for? Pick up the crates')
-            } else {
-                speak('What are you doing here? Don\'t bother me')
+                speak('Maybe I\'ll feel more like helping you if you bring me a cup of coffee. \n\n OK');
+              } else if (pickedUpBoxes) {
+                speak('You\'re still here? Go on, get in there');
+              } else if (beenToGate && coffee) {
+                speak('What are you waiting for? Pick up the crates');
+              } else {
+                speak('What are you doing here? Don\'t bother me');
                 
                 setTimeout(() => {  
                   document.getElementById('speech-bubble').setAttribute('visible', 'false');
-                }, 6000)
-
+                }, 4000)
               }
             }
 
             if (id === 'boxes' && coffee === true) {
               pickedUpBoxes = true;
               document.getElementById('boxes').setAttribute('visible', 'false');
+
               speak('Thank you, the gates are now open. Don\'t forget my crates in there')
+
               openGates();
             }
           });
@@ -93,130 +96,113 @@
             }
           });
         }
-        
       })
 
     </script>
-</head>
-<body>
+  </head>
+  <body>
 
-  <div id='start' class="info-box">
+    <div id='start' class="info-box">
 
-    <div id="title">
-      <img src="assets/stamp.jpg" />
-      <h1>Level 4</h1>
-      <h3>The Maze</h3>
+      <div class="title">
+        <img src="assets/stamp.jpg" />
+        <h1>Level 4</h1>
+        <h3>The Maze</h3>
+      </div>
+
+      <div id="description">
+        <p>
+          Hang in there, Alex. I feel like I’m getting closer. Everything is pointing towards the outskirts of town. I just have to go through the corn maze to get to the Medium. I’m sure it can’t be too difficult..
+        </p>
+        <button type="button" id="start-button">Ok</button>
+      </div>
     </div>
-    <div id="description">
-      <p>
-        Hang in there, Alex. I feel like I’m getting closer. Everything is pointing towards the outskirts of town. I just have to go through the corn maze to get to the Medium. I’m sure it can’t be too difficult..
-      </p>
       
-      <!-- The old lady told me to go talk to the Medium. Apparently I have to go through Pleasantville's Enchanting Corn Maze in order to get there.. -->
-      <!-- You are on your way to the Medium. But in order to get there you need 
-        to go through Pleasantville's Enchanting Corn Maze.. -->
-
-      <button type="button" id="start-button">Ok</button>
-    </div>
-  </div>
-    
     <div id='skip' class="info-box">
       <p id="text">Too hard? Skip to the next section..</p>
       <button type="button" id="skip-button" onclick="window.location.href = 'maze.html';">Next -></button>
-   </div>
-  <!--
-  <div id="instructions2" class="info-box">
-    <p>"Before you can go into the maze you must get me a cup of coffee"</p>
-    <button type="button" id="start-camera">Start</button>
+    </div>
 
-  </div> -->
+    <div id="camera-container">
+      <div id="label-container"></div>
+      <div id="webcam-container"></div>
+    </div>
 
-  <div id="camera-container">
-    <div id="label-container"></div>
-    <div id="webcam-container"></div>
-  </div>
+    <!--Aframe scene starts here-->
+    <a-scene physics>
+      <a-sky src="#asset_sky"></a-sky>
+      <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="200" height="200" material="src:#asset_ground; repeat: 14 14; opacity: 1;" color="orange"></a-plane>
 
-  <!-- ="debug: true" -->
-  <!--   -->
-  <a-scene physics    >
-    <!-- <a-sky color="#007FF0"></a-sky> -->
-    <a-sky src="#asset_sky"></a-sky>
-
-    <a-plane static-body rotation="-90 0 0" position="0 0 -4" width="200" height="200" material="src:#asset_ground; repeat: 14 14; opacity: 1;" color="orange"></a-plane>
-
-    <!-- ASSETS -->
-    <a-assets>
-        <img src="assets/door.png" id="door">
-        <img src="assets/corn.png" id="asset_wall">
-        <img src="assets/grass.jpg" id="asset_ground">
-        <img src="assets/exit3.png" id="asset_entrance">
-        <img src="assets/speech.png" id="asset_speech">
-        <img src="assets/thought.png" id="asset_thought">
-        <img src="assets/crate.jpg" id="asset_crate">
-        <img src="assets/sunrise-field.jpg" id="asset_sky">
-    </a-assets>
+      <!-- ASSETS -->
+      <a-assets>
+          <img src="assets/door.png" id="door">
+          <img src="assets/corn.png" id="asset_wall">
+          <img src="assets/grass.jpg" id="asset_ground">
+          <img src="assets/exit3.png" id="asset_entrance">
+          <img src="assets/speech.png" id="asset_speech">
+          <img src="assets/thought.png" id="asset_thought">
+          <img src="assets/crate.jpg" id="asset_crate">
+          <img src="assets/sunrise-field.jpg" id="asset_sky">
+      </a-assets>
     
-    <a-entity sound="src: url(assets/audio/backgroundnoise.mp3); autoplay: true; loop:true; distanceModel:linear">
-    </a-entity>
+      <a-entity sound="src: url(assets/audio/backgroundnoise.mp3); autoplay: true; loop:true; distanceModel:linear"></a-entity>
 
-    <!-- ="pointerLockEnabled: true" -->
-    <!-- Camera Entity -->
-    <a-entity id="camera" position="0 1.6 0" rotation="0 0 0">
-      <a-entity id="camera" camera look-controls wasd-controls="acceleration: 150" kinematic-body foo>
-        <a-entity text="value: ; align:center; size:.07; height:0.001" material="color:blue" position="-0.6 0 -1" id="red"></a-entity>
-        <a-entity position="1 0.5 -1.7" visible="false" id="thought-bubble">
-          <a-image static-body src="#asset_thought"  width="2" height="7" id='thought' scale="0.7 0.2 0.2"></a-image>
-          <a-entity position="-0.05 0.15 0.1" id="thought-text" text="value: Good Luck Getting Out; align:center; width:1.1; height: 2; wrapCount: 15; color: black;" scale="0.7 0.7 0.7" material="color:black;"  rotation="0 -6 0"></a-entity>
+      <!-- Camera Entity -->
+      <a-entity id="camera" position="0 1.6 0" rotation="0 0 0">
+        <a-entity id="camera" camera look-controls wasd-controls="acceleration: 150" kinematic-body foo>
+          <a-entity text="value: ; align:center; size:.07; height:0.001" material="color:blue" position="-0.6 0 -1" id="red"></a-entity>
+          <a-entity position="1 0.5 -1.7" visible="false" id="thought-bubble">
+            <a-image static-body src="#asset_thought"  width="2" height="7" id='thought' scale="0.7 0.2 0.2"></a-image>
+            <a-entity position="-0.05 0.15 0.1" id="thought-text" text="value: Good Luck Getting Out; align:center; width:1.1; height: 2; wrapCount: 15; color: black;" scale="0.7 0.7 0.7" material="color:black;"  rotation="0 -6 0"></a-entity>
+          </a-entity>
+          <a-entity cursor="fuse: true; fuseTimeout: 500" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02" material="color:#20639B; shader: flat"></a-entity>
         </a-entity>
-        <a-entity cursor="fuse: true; fuseTimeout: 500" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02" material="color:#20639B; shader: flat"></a-entity>
       </a-entity>
-    </a-entity>
 
-    <!-- CORN STALKS -->
-    <a-gltf-model src="assets/cornstalks.glb" position="-3  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow static-body></a-gltf-model>
-    <a-gltf-model src="assets/cornstalks.glb" position="-5.5  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow></a-gltf-model>
-    <a-gltf-model src="assets/cornstalks.glb" position="0  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow></a-gltf-model>
-    <a-gltf-model src="assets/cornstalks.glb" position="2.5  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow></a-gltf-model>
-    <a-gltf-model src="assets/cornstalks.glb" position="7  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow></a-gltf-model>
+      <!-- CORN STALKS -->
+      <a-gltf-model src="assets/cornstalks.glb" position="-3  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow static-body></a-gltf-model>
+      <a-gltf-model src="assets/cornstalks.glb" position="-5.5  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow></a-gltf-model>
+      <a-gltf-model src="assets/cornstalks.glb" position="0  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow></a-gltf-model>
+      <a-gltf-model src="assets/cornstalks.glb" position="2.5  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow></a-gltf-model>
+      <a-gltf-model src="assets/cornstalks.glb" position="7  0 -8.5" rotation=' 0 90 0' animation-mixer="clip: *;" scale="0.14 0.14 0.14" shadow></a-gltf-model>
 
-    <!-- BENCH -->
-    <a-entity position="-4 0 0">
-      <a-gltf-model position="0 -2 0" src="assets/bench.glb" rotation="0 140 0" animation-mixer="clip: *;" scale="1.5 1.5 1.5" shadow static-body id="bench"></a-gltf-model>
-      <a-gltf-model position="0.5 0.1 -1.5" src="assets/man.glb" rotation="0 140 0" animation-mixer="clip: *;" scale="0.5 0.5 0.5" shadow static-body id="bench"></a-gltf-model>
-      <a-entity position="0 2 -1.7" look-at="[camera]" visible="false" id="speech-bubble">
-        <a-image static-body src="#asset_speech"  width="2" height="7" id='speech' scale="0.6 0.1 0.1"></a-image>
-        <a-entity position="0 0.1 0.1" id="speech-text" text="value: Good Luck Getting Out; align:center; width:1; height: 2; wrapCount: 15; color: black;" scale="1 1 1" material="color:black;"  rotation="0 -10 0"></a-entity>
+      <!-- BENCH -->
+      <a-entity position="-4 0 0">
+        <a-gltf-model position="0 -2 0" src="assets/bench.glb" rotation="0 140 0" animation-mixer="clip: *;" scale="1.5 1.5 1.5" shadow static-body id="bench"></a-gltf-model>
+        <a-gltf-model position="0.5 0.1 -1.5" src="assets/man.glb" rotation="0 140 0" animation-mixer="clip: *;" scale="0.5 0.5 0.5" shadow static-body id="bench"></a-gltf-model>
+        <a-entity position="0 2 -1.7" look-at="[camera]" visible="false" id="speech-bubble">
+          <a-image static-body src="#asset_speech"  width="2" height="7" id='speech' scale="0.6 0.1 0.1"></a-image>
+          <a-entity position="0 0.1 0.1" id="speech-text" text="value: Good Luck Getting Out; align:center; width:1; height: 2; wrapCount: 15; color: black;" scale="1 1 1" material="color:black;"  rotation="0 -10 0"></a-entity>
+        </a-entity>
       </a-entity>
-    </a-entity>
 
-    <!-- TREES -->
-    <a-gltf-model src="assets/fall-tree.glb" position="-5 3.5 0" animation-mixer="clip: *;"  shadow id="tree" scale="1 1 1"></a-gltf-model>
-    <a-gltf-model src="assets/fall-tree.glb" position="7 4 -1" animation-mixer="clip: *;" id="tree" shadow scale="1.3 1.3 1.3"></a-gltf-model>
-    
-    <!-- SIGN -->
-    <a-entity position="2.8 -0.5 -7.5">
-      <a-gltf-model src="assets/sign.glb" rotation="0 -10 0" animation-mixer="clip: *;" shadow static-body scale="1 1 1"></a-gltf-model>
-      <a-entity text="value: Good Luck Getting Out; align:center; width:0.5; height: 2; wrapCount: 10; color: beige;" scale="2 2 2" position="0.3 1.5 -0.1" rotation="0 -10 0"></a-entity>
-    </a-entity>
-    
-    <!-- CORN WALL -->
-    <!-- <a-image  static-body src="#asset_entrance" position="5 0.3 -8.7" width="2" height="7" id='entrance'></a-image> -->
-    <a-image static-body position="0 0 -9" width="200" height="5"  material="src:#asset_wall; repeat: 60 2"></a-image>
-    
-    <!-- GATES -->
-    <a-gltf-model src="assets/gate.glb" position="3.1 -1.6 -7.5" rotation="0 -10 0" animation-mixer="clip: *;" id="gate1" shadow static-body scale="1.5 1.5 1.5"></a-gltf-model>
-    <a-gltf-model src="assets/gate.glb" position="4.1 -1.6 -7.2" animation-mixer="clip: *;" id="gate2" shadow static-body scale="1.5 1.5 1.5"></a-gltf-model>
+      <!-- TREES -->
+      <a-gltf-model src="assets/fall-tree.glb" position="-5 3.5 0" animation-mixer="clip: *;"  shadow id="tree" scale="1 1 1"></a-gltf-model>
+      <a-gltf-model src="assets/fall-tree.glb" position="7 4 -1" animation-mixer="clip: *;" id="tree" shadow scale="1.3 1.3 1.3"></a-gltf-model>
+      
+      <!-- SIGN -->
+      <a-entity position="2.8 -0.5 -7.5">
+        <a-gltf-model src="assets/sign.glb" rotation="0 -10 0" animation-mixer="clip: *;" shadow static-body scale="1 1 1"></a-gltf-model>
+        <a-entity text="value: Good Luck Getting Out; align:center; width:0.5; height: 2; wrapCount: 10; color: beige;" scale="2 2 2" position="0.3 1.5 -0.1" rotation="0 -10 0"></a-entity>
+      </a-entity>
+      
+      <!-- CORN WALL -->
+      <a-image static-body position="0 0 -9" width="200" height="5"  material="src:#asset_wall; repeat: 60 2"></a-image>
+      
+      <!-- GATES -->
+      <a-gltf-model src="assets/gate.glb" position="3.1 -1.6 -7.5" rotation="0 -10 0" animation-mixer="clip: *;" id="gate1" shadow static-body scale="1.5 1.5 1.5"></a-gltf-model>
+      <a-gltf-model src="assets/gate.glb" position="4.1 -1.6 -7.2" animation-mixer="clip: *;" id="gate2" shadow static-body scale="1.5 1.5 1.5"></a-gltf-model>
 
-    <!-- CRATES -->
-    <a-entity static-body position="-5 0 -1.5" id="boxes" visible="false" crates="">
-      <a-box static-body position="0 0.75 0" rotation="0 10 0" width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
-      <a-box static-body position="0 1.25 0" width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
-      <a-box static-body position="0 1.75 0" rotation="0 20 0" width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
-      <a-box static-body position="0 0.25 0"  width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
-      <a-box static-body position="0 2.25 0" rotation="0 10 0" width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
-    </a-entity>
+      <!-- CRATES -->
+      <a-entity static-body position="-5 0 -1.5" id="boxes" visible="false" crates="">
+        <a-box static-body position="0 0.75 0" rotation="0 10 0" width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
+        <a-box static-body position="0 1.25 0" width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
+        <a-box static-body position="0 1.75 0" rotation="0 20 0" width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
+        <a-box static-body position="0 0.25 0"  width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
+        <a-box static-body position="0 2.25 0" rotation="0 10 0" width="0.5" height="0.5" depth="0.5" material="src:#asset_crate; repeat: 1 1"></a-box>
+      </a-entity>
 
-  </a-scene>
+    </a-scene>
 
     <script src='src/intro.js'></script>
 
@@ -225,5 +211,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
     <script src="src/teachable.js"></script>
 
-</body>
+  </body>
+  
 </html>

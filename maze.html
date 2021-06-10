@@ -17,9 +17,6 @@
     <script src="src/common.js"></script>    <!--JavaScript for the maze-->
     <script src="https://cdn.jsdelivr.net/npm/aframe-glow@1.0.1/dist/aframe-glow-component.js"></script>
 
-    <!-- ENABLE ANIMATION -->
-    <!-- <script src="https://unpkg.com/aframe-extras@6.1.0/dist/aframe-extras.loaders.min.js"></script> -->
-
     <!-- CSS -->
     <link rel="stylesheet" href="src/style.css">
 
@@ -28,7 +25,7 @@
   <body>
     <div id='start' class="info-box">
 
-      <div id="title">
+      <div class="title">
         <img src="assets/stamp2.jpg" />
         <h1>Level 4</h1>
         <h3>The Maze</h3>
@@ -46,12 +43,10 @@
       <button type="button" id="skip-button" onclick="window.location.href = 'end.html';">Next -></button>
    </div>
    
-    <!--Anchored VR Design-->
     <!--Aframe scene starts here-->
     <a-scene physics id="scene" fog="type: linear; color: #AAB; near: 0; far:10;" >
 
       <!--Importing Assets-->
-      <!--Diegetic UI Elements-->
       <a-assets>
         <img src="assets/door.png" id="door">
         <img src="assets/corn.jpg" id="asset_wall">
@@ -77,22 +72,16 @@
           kinematic-body 
           universal-controls>
           <!--Entity to create a crosshair-->
-          <!--Crosshair is a Non-Diegetic UI Element-->
           <a-entity cursor="fuse: true; fuseTimeout: 500"
             position="0 0 -1"
             geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
             material="color:#20639B; shader: flat">
           </a-entity>
           <!--Entity for Timer-->
-          <!--Timer is a Non-Diegetic UI Element-->
           <a-entity text="text: ;size:.07;height:0.001" material="color:red" position="1 0.65 -1" id="board"></a-entity>
 
           <!-- What you've found so far  -->
           <a-entity text="text: ;size:.07;height:0.001" material="color:red" position="-1 0.65 -1" id="found"></a-entity>
-
-          <!--Entity for Winner text-->
-          <!-- <a-entity text="text: ;size:0.1;height:0.001" material="color:#f4ff61" position="-0.6 0 -1" id="winner"></a-entity>
-          <a-entity text="text: ;size:0.1;height:0.001" material="color:#f4ff61" position="-0.6 0 -1" id="red"></a-entity> -->
 
           <!-- ENTITY FOR THOUGHT BUBBLE -->
           <a-entity position="1 0.3 -1.3" visible="false" id="thought-bubble">
@@ -120,15 +109,12 @@
       });
 
       /* Maze formation */
+      let maze;
+      let counter;
       let found = [];
-      
-      var maze;
+      let seconds = 0;
 
-      var seconds = 0;
-      var counter;
-
-      // Player body collision Text display
-      var cam = document.getElementById('camera');
+      const cam = document.getElementById('camera');
 
       const think = (thought) => {
         let text = document.getElementById('thought-text');
@@ -148,11 +134,11 @@
           found.push(color) 
           document.getElementById(color).setAttribute('position', '0 -1 0');
           
-          var progress = document.getElementById('found');
-          var attr_text = progress.getAttribute('text');
+          const progress = document.getElementById('found');
+          const attr_text = progress.getAttribute('text');
 
           attr_text.text = 'You\'ve found: ' + found.length;
-          var prog = attr_text;
+          let prog = attr_text;
           progress.setAttribute('text', attr_text);
 
           if(found.length == 1) {
@@ -177,28 +163,12 @@
         }
 
         if (id == 'price') {
-          // var winner = document.getElementById('winner');
-          // var attr_text = winner.getAttribute('text');
-
-          // if(found.length < 4) {
-          //   // attr_text.text = 'find more in order to exit';
-          //   // winner.setAttribute('text', attr_text);
-
-          //   // setTimeout(() => {  
-          //   //   attr_text.text = "";
-          //   //   winner.setAttribute('text', attr_text);
-          //   // }, 1500)
-            
-          // } else {
             clearInterval(counter);
             
-            // attr_text.text = found;
-            // winner.setAttribute('text', attr_text);
+            // Go to next challenge
             window.sessionStorage.setItem('found', JSON.stringify(found));
             window.location.href="end.html"
-          // }
         }
-
       });
 
       // Timer Function
@@ -206,18 +176,17 @@
 
         seconds = 0;
         counter = setInterval(function(){
-          var board = document.getElementById('board');
-          var attr_text = board.getAttribute('text');
+          let board = document.getElementById('board');
+          let attr_text = board.getAttribute('text');
           attr_text.text = seconds++;
-          var sec = attr_text;
+
           board.setAttribute('text',attr_text);
 
           if (seconds === 60) {
-              think('Where am I, Alex?')
-            }
-          if (seconds === 120) {
-              think('Will I ever get out?')
-            }
+            think('Where am I, Alex?')
+          } else if (seconds === 120) {
+            think('Will I ever get out?')
+          }
         },1000);
       }
       
@@ -231,7 +200,6 @@
         for (var i = 0; i < maze.length; i++) {
           maze[i] = [].repeat(0, width);
         }
-
 
         // Randomized path generation 
         buildPath(maze,[0,0]);
@@ -261,11 +229,11 @@
           startTimer();
       }
 
-    document.querySelector('#start-button').addEventListener('click', hideInstructions)
-
+      document.querySelector('#start-button').addEventListener('click', hideInstructions)
     </script>
-    <script src="src/intro.js"></script>
 
+    <script src="src/intro.js"></script>
    <!--JavaScript ends here-->
+
   </body>
 </html>

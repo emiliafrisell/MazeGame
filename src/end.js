@@ -67,7 +67,7 @@ const boxDelivered = (nr) => {
 
     currentCrate = document.getElementById(nr);
     
-    for( var i = 0; i < crates.length; i++){ 
+    for( let i = 0; i < crates.length; i++){ 
         
         if ( crates[i] === nr) { 
             crates.splice(i, 1); 

@@ -21,9 +21,7 @@ const openGates = () => {
 
 // Load the image model and setup the webcam
 async function init() {
-
-    // document.querySelector('#start').style = 'display: none;'
-
+    
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
